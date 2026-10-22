@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>How an internal audit works</title>
+<style>/* Page CSS for the QMS training docs, from the template decision (#2087).
+   Layout A (Level 1): one long story page. Layout B (Levels 2 and 3): one row per step,
+   real life on the left and the product on the right. build.py inlines this file into every page. */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300..800&display=swap');
+:root{--if-navy:#002e56;--if-blue:#0371c3;--if-blue-dark:#0757a2;--if-cyan:#1db5fc;--if-ink:#000229;--if-text:#5f6368;
+--if-tint:#f0f8ff;--if-surface:#f7f9fb;--if-line:#dae4ed;--if-grey:#8c8c8c;
+--if-font:"Plus Jakarta Sans",system-ui,sans-serif;--if-shadow:0 10px 30px rgba(0,46,86,.12);
+--if-grad:linear-gradient(135deg,#1db5fc 0%,#0371c3 60%,#0757a2 100%)}
+*{box-sizing:border-box}
+body{margin:0;font:17px/1.65 var(--if-font);color:var(--if-text);background:#fff}
+h1,h2,h3,h4{color:var(--if-ink);line-height:1.2;margin:1.6em 0 .5em}h1{font-size:44px;font-weight:700;margin-top:0}
+h2{font-size:30px;font-weight:700}h3{font-size:21px;font-weight:700}
+a{color:var(--if-blue)}strong{color:var(--if-ink)}
+img{max-width:100%}
+code{background:var(--if-surface);border:1px solid var(--if-line);border-radius:4px;padding:.1em .35em;font-size:.88em}
+table{border-collapse:collapse;width:100%;font-size:15px;margin:1rem 0}
+th,td{border-bottom:1px solid var(--if-line);padding:.5rem .65rem;text-align:left;vertical-align:top}
+th{color:var(--if-ink);font-weight:700;background:var(--if-surface)}
+.table-wrap{overflow-x:auto}
+blockquote{margin:1.2rem 0;padding:16px 20px;background:#fff8e6;border-radius:16px;color:#5a3d00}
+/* top bar and footer */
+.topbar{display:flex;align-items:center;gap:16px;padding:14px 32px;border-bottom:1px solid var(--if-line)}
+.logo{font:800 20px var(--if-font);color:var(--if-navy);letter-spacing:-.02em}.logo span{color:var(--if-cyan)}
+.crumbs{font-size:14px;color:var(--if-grey)}.stamp{margin-left:auto;font-size:12px;color:var(--if-grey)}
+.lvl{display:inline-block;padding:3px 10px;border-radius:30px;font:700 12px/1.4 var(--if-font);color:#fff;background:var(--if-blue)}
+.lvl.l1{background:var(--if-navy)}.lvl.l3{background:var(--if-grey)}
+footer{border-top:1px solid var(--if-line);margin-top:48px;padding:16px 32px;font-size:13px;color:var(--if-grey)}
+/* blocks pages write as HTML */
+.story{background:var(--if-tint);border-left:8px solid var(--if-blue);border-radius:0 16px 16px 0;padding:20px 24px;color:var(--if-ink)}
+.card{background:var(--if-surface);border-radius:16px;padding:20px 22px}
+.story,.card,.warn,.roles{margin:1.5rem 0}
+.warn{background:#fff8e6;border-radius:16px;padding:16px 20px}.warn h3{color:#7a5200;margin-top:0}
+.roles{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px}
+.role{background:#fff;border:1px solid var(--if-line);border-radius:16px;padding:14px}.role p{margin:0}
+.role .who{font-weight:700;color:var(--if-ink)}.role .job{font-size:13px;color:var(--if-grey)}
+.flow{display:flex;flex-wrap:wrap;align-items:stretch;gap:8px;margin:18px 0}
+.flow .st{flex:1;min-width:110px;background:#fff;border:2px solid var(--if-line);border-radius:14px;padding:12px;text-align:center;font-size:14px;color:var(--if-ink)}
+.next{display:flex;justify-content:space-between;gap:16px;border-top:1px solid var(--if-line);padding-top:16px;margin-top:40px;font-weight:600}
+.flow .st.on{background:var(--if-blue);border-color:var(--if-blue);color:#fff}
+/* screenshot with numbered callouts: <figure class="shot"><img ...><span class="co" style="left:..%;top:..%">1</span></figure> */
+.shot{position:relative;margin:1.2rem 0;border:1px solid var(--if-line);border-radius:12px;box-shadow:var(--if-shadow);overflow:hidden}
+.shot img{display:block;width:100%}
+.co{position:absolute;width:34px;height:34px;margin:-17px 0 0 -17px;border-radius:50%;background:var(--if-blue);color:#fff;font:700 16px/34px var(--if-font);text-align:center;box-shadow:0 0 0 4px rgba(255,255,255,.9)}
+ol.legend{padding-left:0;list-style:none;counter-reset:c}ol.legend li{counter-increment:c;position:relative;padding-left:36px;margin:8px 0}
+ol.legend li::before{content:counter(c);position:absolute;left:0;top:1px;width:26px;height:26px;border-radius:50%;background:var(--if-blue);color:#fff;font:700 13px/26px var(--if-font);text-align:center}
+/* layout A */
+.layout-a main{max-width:820px;margin:0 auto;padding:40px 24px 80px}
+/* layout B */
+.layout-b .hero{background:var(--if-grad);padding:48px 48px 56px;border-radius:0 0 40px 40px}
+.layout-b .hero h1{color:#fff}.layout-b .hero p{color:#e6f4ff;max-width:720px}
+.layout-b main{max-width:1180px;margin:0 auto;padding:32px 24px 80px;counter-reset:step}
+.layout-b .row{display:grid;grid-template-columns:70px 1fr 1fr;gap:20px;padding:22px 0;border-bottom:1px solid var(--if-line);counter-increment:step}
+.layout-b .row::before{content:counter(step);font:800 40px/1 var(--if-font);color:var(--if-line)}
+.layout-b .row .wide{grid-column:2 / -1}
+.layout-b .life{color:var(--if-ink)}.layout-b .prod{background:var(--if-surface);border-radius:14px;padding:14px 16px;font-size:15px}
+.layout-b .life>:first-child,.layout-b .prod>:first-child{margin-top:0}
+@media (max-width:760px){.layout-b .row{grid-template-columns:1fr}.layout-b .row .wide{grid-column:auto}.layout-b .row::before{font-size:28px}}
+@media print{.topbar,footer{display:none}.shot{box-shadow:none}h2{page-break-after:avoid}}
+</style></head>
+<body class="layout-a">
+<header class="topbar"><span class="logo">interfacing<span>.</span></span>
+<span class="crumbs">QMS training</span> <span class="lvl l1">Level 1 · In real life</span><span class="stamp">QMS ext 406, checked on the demo environment</span></header>
+<main><h1 id="how-an-internal-audit-works">How an internal audit works</h1>
+<p>An audit has six steps, from writing down the rules to handing over what the auditors found. This chapter follows Cedar Valley through each of them.</p>
+<div class="flow">
+<div class="st">1. The rules</div><div class="st">2. The program</div><div class="st">3. The plan</div><div class="st">4. Evidence</div><div class="st">5. The audit</div><div class="st">6. Sign-off</div>
+</div>
+
+<p>Key words: <a href="../glossary.html#requirement">requirement</a>, <a href="../glossary.html#test">test</a>, <a href="../glossary.html#audit-program">audit program</a>, <a href="../glossary.html#audit-plan">audit plan</a>, <a href="../glossary.html#evidence">evidence</a>, <a href="../glossary.html#finding">finding</a>.</p>
+<h2 id="1-the-rules">1. The rules</h2>
+<p>An audit checks requirements: things the company must do. They come from standards, customer contracts, laws and the company's own procedures.</p>
+<div class="story">
+<p>Priya writes down four requirements from Cedar Valley's own procedures:</p>
+<ul>
+<li>R1: "Measuring equipment is calibrated every 12 months."</li>
+<li>R2: "Each gauge carries a label showing its next calibration date."</li>
+<li>R3: "Work instructions at the station are the current released revision."</li>
+<li>R4: "Calibration records are kept for 3 years."</li>
+</ul>
+</div>
+<p>Some requirements can be checked in one look. Others need proof over time. For R1, one look at the shop floor is not enough, so Priya adds a test: "Sample 10 calibration records from the last quarter." Before the audit, someone collects those 10 records so the auditor can check them.</p>
+<h2 id="2-the-program">2. The program</h2>
+<p>An audit program says what to check, who checks it and how often. It is written once and run again and again.</p>
+<div class="story">
+<p>Priya creates the program "Measuring equipment and calibration". It lists R1 to R4, runs once a year, and belongs to the team "Cedar Valley Internal Audit". Marco, who leads that team, reads it and approves it.</p>
+</div>
+<p>A company has many programs, one for each area or process. Together they cover the whole quality system over one to three years. Areas with more risk or more past problems are audited more often.</p>
+<h2 id="3-the-plan">3. The plan</h2>
+<p>An audit plan is one run of a program: the dates, the place and the people.</p>
+<div class="story">
+<p>Marco plans this year's run for the machining area of the Riverside plant. Sam will lead the audit and Tom will collect the evidence. Grace, the production supervisor, is the auditee. Sam takes R1 and R2 and gives R3 and R4 to Lina. Grace receives an email with the dates and what to prepare.</p>
+</div>
+<p>In real life, an audit is planned weeks ahead. The auditee gets time to prepare, and nothing is a surprise. Surprise audits exist, but they are the exception.</p>
+<h2 id="4-evidence">4. Evidence</h2>
+<p>Evidence is a fact the auditor can check: a record, a photo, a label, something seen on the spot. For a test, evidence is gathered before the audit, in one or more rounds.</p>
+<div class="story">
+<p>Tom picks 10 calibration records from the last quarter and attaches them. As lead evidence collector, he reviews and approves his own batch. Sam now sees them on R1.</p>
+</div>
+<h2 id="5-the-audit">5. The audit</h2>
+<p>The auditors walk the area, look at the work, read the records and talk to the people. For each requirement they decide whether it is met.</p>
+<div class="story">
+<p>Sam and Lina walk Line 2. They record three findings:</p>
+<ul>
+<li>On R1, a major finding: "4 of 12 gauges on Line 2 are past their calibration date. Two were used this week."</li>
+<li>On R3, a minor finding: "Station 5 shows revision B of WI-214. Revision C was released in June."</li>
+<li>On R4, an observation: "Calibration records are kept in two spreadsheets. Both are complete, but nobody is sure which one is the master."</li>
+</ul>
+<p>R2 is met. Every gauge has its label.</p>
+</div>
+<p>A finding is graded by how serious it is:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Kind of finding</th>
+<th>What it means</th>
+<th>Cedar Valley example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="../glossary.html#major-finding">Major</a></td>
+<td>A requirement is missing altogether, or the failure is systemic and could reach a customer</td>
+<td>overdue gauges used to accept parts</td>
+</tr>
+<tr>
+<td><a href="../glossary.html#minor-finding">Minor</a></td>
+<td>One isolated slip, and the system around it works</td>
+<td>one station with an old work instruction</td>
+</tr>
+<tr>
+<td><a href="../glossary.html#non-conformity">Non-conformity</a></td>
+<td>A requirement is not met, for companies that do not grade major and minor</td>
+<td></td>
+</tr>
+<tr>
+<td><a href="../glossary.html#observation">Observation</a></td>
+<td>Nothing is broken yet, but there is a weak spot</td>
+<td>two copies of the records</td>
+</tr>
+</tbody>
+</table></div>
+<p>The grade decides what happens next. Chapter 03 follows the major finding, and chapter 04 the other two.</p>
+<h2 id="6-sign-off-and-handover">6. Sign-off and handover</h2>
+<p>The lead auditor submits the results. The audit owner reads the report and signs it off. At the same time, each finding that needs work is handed over to the people who will fix it.</p>
+<div class="story">
+<p>Marco, as audit owner, reads the report. He sends the overdue gauges to a CAPA, because they are a major finding. He sends the old work instruction to a quality event. Elena, the quality manager, will review both. Marco leaves the observation as it is. It stays in the report, and the next audit will look at it again. Then he signs off the audit.</p>
+</div>
+<p>The audit is now complete. The fixes run on their own, with their own owners and deadlines.</p>
+<h2 id="who-does-what">Who does what</h2>
+<div class="roles">
+<div class="role"><p class="who">Program author</p><p class="job">Priya</p><p>Writes the requirements and the program.</p></div>
+<div class="role"><p class="who">Team leader</p><p class="job">Marco</p><p>Approves the program and plans each run.</p></div>
+<div class="role"><p class="who">Lead auditor</p><p class="job">Sam</p><p>Runs the audit and shares out the requirements.</p></div>
+<div class="role"><p class="who">Auditor</p><p class="job">Lina</p><p>Checks the requirements given to her.</p></div>
+<div class="role"><p class="who">Evidence collector</p><p class="job">Tom</p><p>Gathers the evidence for the tests.</p></div>
+<div class="role"><p class="who">Auditee</p><p class="job">Grace</p><p>Shows how the work is done.</p></div>
+<div class="role"><p class="who">Audit owner</p><p class="job">Marco</p><p>Reads the report, hands findings over and signs off.</p></div>
+</div>
+
+<div class="warn">
+<h3 id="common-mistakes">Common mistakes</h3>
+<ul>
+<li>Writing a finding without evidence. "Some gauges look old" cannot be checked. "Gauge G-201, due 1 August, used on 14 October" can.</li>
+<li>Grading every finding as major. When everything is urgent, nothing is.</li>
+<li>Closing the audit with findings nobody owns. Every finding that needs work goes to a CAPA or a quality event before sign-off.</li>
+</ul>
+</div>
+<div class="card">
+<h3 id="for-iso-readers">For ISO readers</h3>
+<p>ISO 9001 clause 9.2 asks for an audit program with frequency, methods, responsibilities and reporting; criteria and scope for each audit; objective auditors; results reported to management; action without undue delay; and records of the program and its results. ISO 19011 describes the steps of a single audit: initiate, prepare, conduct, report and follow up. ISO 19011's "audit programme" covers all audits in a period. One audit program in this pack is narrower: the definition of one recurring audit.</p>
+</div>
+<div class="next"><a href="01-why-companies-audit.html">Back: Why companies audit themselves</a><a href="03-from-finding-to-fix.html">Next: From finding to fix: CAPA</a></div></main>
+</body></html>

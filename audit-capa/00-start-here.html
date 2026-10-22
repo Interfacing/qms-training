@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Start here</title>
+<style>/* Page CSS for the QMS training docs, from the template decision (#2087).
+   Layout A (Level 1): one long story page. Layout B (Levels 2 and 3): one row per step,
+   real life on the left and the product on the right. build.py inlines this file into every page. */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300..800&display=swap');
+:root{--if-navy:#002e56;--if-blue:#0371c3;--if-blue-dark:#0757a2;--if-cyan:#1db5fc;--if-ink:#000229;--if-text:#5f6368;
+--if-tint:#f0f8ff;--if-surface:#f7f9fb;--if-line:#dae4ed;--if-grey:#8c8c8c;
+--if-font:"Plus Jakarta Sans",system-ui,sans-serif;--if-shadow:0 10px 30px rgba(0,46,86,.12);
+--if-grad:linear-gradient(135deg,#1db5fc 0%,#0371c3 60%,#0757a2 100%)}
+*{box-sizing:border-box}
+body{margin:0;font:17px/1.65 var(--if-font);color:var(--if-text);background:#fff}
+h1,h2,h3,h4{color:var(--if-ink);line-height:1.2;margin:1.6em 0 .5em}h1{font-size:44px;font-weight:700;margin-top:0}
+h2{font-size:30px;font-weight:700}h3{font-size:21px;font-weight:700}
+a{color:var(--if-blue)}strong{color:var(--if-ink)}
+img{max-width:100%}
+code{background:var(--if-surface);border:1px solid var(--if-line);border-radius:4px;padding:.1em .35em;font-size:.88em}
+table{border-collapse:collapse;width:100%;font-size:15px;margin:1rem 0}
+th,td{border-bottom:1px solid var(--if-line);padding:.5rem .65rem;text-align:left;vertical-align:top}
+th{color:var(--if-ink);font-weight:700;background:var(--if-surface)}
+.table-wrap{overflow-x:auto}
+blockquote{margin:1.2rem 0;padding:16px 20px;background:#fff8e6;border-radius:16px;color:#5a3d00}
+/* top bar and footer */
+.topbar{display:flex;align-items:center;gap:16px;padding:14px 32px;border-bottom:1px solid var(--if-line)}
+.logo{font:800 20px var(--if-font);color:var(--if-navy);letter-spacing:-.02em}.logo span{color:var(--if-cyan)}
+.crumbs{font-size:14px;color:var(--if-grey)}.stamp{margin-left:auto;font-size:12px;color:var(--if-grey)}
+.lvl{display:inline-block;padding:3px 10px;border-radius:30px;font:700 12px/1.4 var(--if-font);color:#fff;background:var(--if-blue)}
+.lvl.l1{background:var(--if-navy)}.lvl.l3{background:var(--if-grey)}
+footer{border-top:1px solid var(--if-line);margin-top:48px;padding:16px 32px;font-size:13px;color:var(--if-grey)}
+/* blocks pages write as HTML */
+.story{background:var(--if-tint);border-left:8px solid var(--if-blue);border-radius:0 16px 16px 0;padding:20px 24px;color:var(--if-ink)}
+.card{background:var(--if-surface);border-radius:16px;padding:20px 22px}
+.story,.card,.warn,.roles{margin:1.5rem 0}
+.warn{background:#fff8e6;border-radius:16px;padding:16px 20px}.warn h3{color:#7a5200;margin-top:0}
+.roles{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px}
+.role{background:#fff;border:1px solid var(--if-line);border-radius:16px;padding:14px}.role p{margin:0}
+.role .who{font-weight:700;color:var(--if-ink)}.role .job{font-size:13px;color:var(--if-grey)}
+.flow{display:flex;flex-wrap:wrap;align-items:stretch;gap:8px;margin:18px 0}
+.flow .st{flex:1;min-width:110px;background:#fff;border:2px solid var(--if-line);border-radius:14px;padding:12px;text-align:center;font-size:14px;color:var(--if-ink)}
+.next{display:flex;justify-content:space-between;gap:16px;border-top:1px solid var(--if-line);padding-top:16px;margin-top:40px;font-weight:600}
+.flow .st.on{background:var(--if-blue);border-color:var(--if-blue);color:#fff}
+/* screenshot with numbered callouts: <figure class="shot"><img ...><span class="co" style="left:..%;top:..%">1</span></figure> */
+.shot{position:relative;margin:1.2rem 0;border:1px solid var(--if-line);border-radius:12px;box-shadow:var(--if-shadow);overflow:hidden}
+.shot img{display:block;width:100%}
+.co{position:absolute;width:34px;height:34px;margin:-17px 0 0 -17px;border-radius:50%;background:var(--if-blue);color:#fff;font:700 16px/34px var(--if-font);text-align:center;box-shadow:0 0 0 4px rgba(255,255,255,.9)}
+ol.legend{padding-left:0;list-style:none;counter-reset:c}ol.legend li{counter-increment:c;position:relative;padding-left:36px;margin:8px 0}
+ol.legend li::before{content:counter(c);position:absolute;left:0;top:1px;width:26px;height:26px;border-radius:50%;background:var(--if-blue);color:#fff;font:700 13px/26px var(--if-font);text-align:center}
+/* layout A */
+.layout-a main{max-width:820px;margin:0 auto;padding:40px 24px 80px}
+/* layout B */
+.layout-b .hero{background:var(--if-grad);padding:48px 48px 56px;border-radius:0 0 40px 40px}
+.layout-b .hero h1{color:#fff}.layout-b .hero p{color:#e6f4ff;max-width:720px}
+.layout-b main{max-width:1180px;margin:0 auto;padding:32px 24px 80px;counter-reset:step}
+.layout-b .row{display:grid;grid-template-columns:70px 1fr 1fr;gap:20px;padding:22px 0;border-bottom:1px solid var(--if-line);counter-increment:step}
+.layout-b .row::before{content:counter(step);font:800 40px/1 var(--if-font);color:var(--if-line)}
+.layout-b .row .wide{grid-column:2 / -1}
+.layout-b .life{color:var(--if-ink)}.layout-b .prod{background:var(--if-surface);border-radius:14px;padding:14px 16px;font-size:15px}
+.layout-b .life>:first-child,.layout-b .prod>:first-child{margin-top:0}
+@media (max-width:760px){.layout-b .row{grid-template-columns:1fr}.layout-b .row .wide{grid-column:auto}.layout-b .row::before{font-size:28px}}
+@media print{.topbar,footer{display:none}.shot{box-shadow:none}h2{page-break-after:avoid}}
+</style></head>
+<body class="layout-a">
+<header class="topbar"><span class="logo">interfacing<span>.</span></span>
+<span class="crumbs">QMS training</span><span class="stamp">QMS ext 406, checked on the demo environment</span></header>
+<main><h1 id="start-here">Start here</h1>
+<p>This pack teaches internal audits, CAPA and action items. It starts with what happens in a real company and only then shows the product. You do not need to know quality management or ISO standards to read it.</p>
+<h2 id="three-levels">Three levels</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Level</th>
+<th>What it covers</th>
+<th>Chapters</th>
+<th>For</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>What an audit and a CAPA are in real life, and who does what</td>
+<td>01 to 04</td>
+<td>everyone, including sales and management</td>
+</tr>
+<tr>
+<td>2</td>
+<td>How the product does each step, screen by screen</td>
+<td>05 to 14</td>
+<td>users, service, business analysts</td>
+</tr>
+<tr>
+<td>3</td>
+<td>How to set the product up</td>
+<td>15 and 16</td>
+<td>administrators, service</td>
+</tr>
+</tbody>
+</table></div>
+<p>Read Level 1 first, even if you only need the product. The screens make sense once you know the story behind them. Developers carry on after Level 3 into the technical documentation of Audit, CAPA and Action Items.</p>
+<h2 id="one-story-runs-through-the-pack">One story runs through the pack</h2>
+<p>Every chapter follows the same company. Cedar Valley Components makes precision metal parts, mostly pump housings and valve bodies. It has about 350 people and two plants, Riverside and Hillcrest. It holds an ISO 9001 certificate.</p>
+<p>In this pack, Cedar Valley audits how it calibrates its measuring equipment. The audit finds a serious problem with overdue gauges, a smaller one with an old work instruction, and a weak spot in how records are kept. The rest of the pack follows each of them to the end.</p>
+<div class="roles">
+<div class="role"><p class="who">Priya Shah</p><p class="job">Quality systems specialist</p><p>Writes the rules and the audit program.</p></div>
+<div class="role"><p class="who">Marco Rossi</p><p class="job">Internal audit team leader</p><p>Approves the program, plans the audit and signs it off.</p></div>
+<div class="role"><p class="who">Elena Novak</p><p class="job">Quality manager</p><p>Reviews and closes the CAPA and the quality event.</p></div>
+<div class="role"><p class="who">Sam Okafor</p><p class="job">Process engineer, lead auditor</p><p>Runs the audit.</p></div>
+<div class="role"><p class="who">Lina Park</p><p class="job">Buyer, auditor</p><p>Audits two requirements, later checks that the fix worked.</p></div>
+<div class="role"><p class="who">Tom Becker</p><p class="job">Quality technician</p><p>Collects the evidence.</p></div>
+<div class="role"><p class="who">Grace Liu</p><p class="job">Production supervisor</p><p>Her area is audited.</p></div>
+<div class="role"><p class="who">Ahmed Haddad</p><p class="job">Maintenance manager</p><p>Finds the root cause and plans the fixes.</p></div>
+<div class="role"><p class="who">Jonas Weber</p><p class="job">Maintenance technician</p><p>Carries out the fixes.</p></div>
+</div>
+
+<p>Cedar Valley and its people are invented. The screenshots come from a demo system filled with their records.</p>
+<h2 id="how-words-are-used">How words are used</h2>
+<ul>
+<li>Every special word is explained in the <a href="../glossary.html">glossary</a>. The twelve words at the top of the glossary are enough to follow the story.</li>
+<li>When a sentence points at something on screen, the screen label is in <strong>bold</strong>, for example <strong>Create Audit Program</strong>.</li>
+<li>ISO terms appear in the "For ISO readers" boxes and in the glossary. The rest of the text uses plain words.</li>
+</ul>
+<h2 id="chapters">Chapters</h2>
+<p>Level 1, in real life:</p>
+<ol>
+<li><a href="01-why-companies-audit.html">Why companies audit themselves</a></li>
+<li><a href="02-how-an-internal-audit-works.html">How an internal audit works</a></li>
+<li><a href="03-from-finding-to-fix.html">From finding to fix: CAPA</a></li>
+<li><a href="04-not-every-finding-needs-a-capa.html">Not every finding needs a CAPA</a></li>
+</ol>
+<p>Level 2, in the product:</p>
+<ol start="5">
+<li><a href="05-finding-your-way.html">Finding your way</a></li>
+<li><a href="06-requirements-and-tests.html">Requirements and tests</a></li>
+<li><a href="07-audit-programs.html">Audit programs</a></li>
+<li><a href="08-planning-and-scheduling.html">Planning and scheduling an audit</a></li>
+<li><a href="09-collecting-evidence.html">Collecting evidence</a></li>
+<li><a href="10-running-the-audit.html">Running the audit and recording findings</a></li>
+<li><a href="11-signing-off-and-handing-over.html">Signing off and handing findings over</a></li>
+<li><a href="12-running-a-capa.html">Running a CAPA</a></li>
+<li><a href="13-action-items-and-quality-events.html">Action items, and the quality event route</a></li>
+<li><a href="14-keeping-track.html">Keeping track: lists and dashboards</a></li>
+</ol>
+<p>Level 3, setup:</p>
+<ol start="15">
+<li><a href="15-setting-up.html">Setting up Audit and CAPA</a></li>
+<li><a href="16-process-repository.html">Connection to the process repository</a></li>
+</ol>
+<p>Appendices:</p>
+<ul>
+<li><a href="appendix-a-iso-mapping.html">A. ISO mapping</a></li>
+<li><a href="appendix-b-faq.html">B. FAQ and common mistakes</a></li>
+</ul>
+<p>One page per role, to print or pin: <a href="roles/quality-manager.html">quality manager</a>, <a href="roles/auditor.html">auditor</a>, <a href="roles/evidence-collector.html">evidence collector</a>, <a href="roles/auditee.html">auditee</a>, <a href="roles/capa-team.html">CAPA team</a>, <a href="roles/action-items.html">action items</a>.</p>
+<h2 id="which-product-version">Which product version</h2>
+<p>The steps and screenshots match the version printed in the top bar of each page. If your system runs a newer version, a label or a step may differ. The story and Level 1 stay the same.</p>
+<div class="next"><span></span><a href="01-why-companies-audit.html">Next: Why companies audit themselves</a></div></main>
+</body></html>

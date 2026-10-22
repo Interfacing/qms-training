@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Appendix B: FAQ and common mistakes</title>
+<style>/* Page CSS for the QMS training docs, from the template decision (#2087).
+   Layout A (Level 1): one long story page. Layout B (Levels 2 and 3): one row per step,
+   real life on the left and the product on the right. build.py inlines this file into every page. */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300..800&display=swap');
+:root{--if-navy:#002e56;--if-blue:#0371c3;--if-blue-dark:#0757a2;--if-cyan:#1db5fc;--if-ink:#000229;--if-text:#5f6368;
+--if-tint:#f0f8ff;--if-surface:#f7f9fb;--if-line:#dae4ed;--if-grey:#8c8c8c;
+--if-font:"Plus Jakarta Sans",system-ui,sans-serif;--if-shadow:0 10px 30px rgba(0,46,86,.12);
+--if-grad:linear-gradient(135deg,#1db5fc 0%,#0371c3 60%,#0757a2 100%)}
+*{box-sizing:border-box}
+body{margin:0;font:17px/1.65 var(--if-font);color:var(--if-text);background:#fff}
+h1,h2,h3,h4{color:var(--if-ink);line-height:1.2;margin:1.6em 0 .5em}h1{font-size:44px;font-weight:700;margin-top:0}
+h2{font-size:30px;font-weight:700}h3{font-size:21px;font-weight:700}
+a{color:var(--if-blue)}strong{color:var(--if-ink)}
+img{max-width:100%}
+code{background:var(--if-surface);border:1px solid var(--if-line);border-radius:4px;padding:.1em .35em;font-size:.88em}
+table{border-collapse:collapse;width:100%;font-size:15px;margin:1rem 0}
+th,td{border-bottom:1px solid var(--if-line);padding:.5rem .65rem;text-align:left;vertical-align:top}
+th{color:var(--if-ink);font-weight:700;background:var(--if-surface)}
+.table-wrap{overflow-x:auto}
+blockquote{margin:1.2rem 0;padding:16px 20px;background:#fff8e6;border-radius:16px;color:#5a3d00}
+/* top bar and footer */
+.topbar{display:flex;align-items:center;gap:16px;padding:14px 32px;border-bottom:1px solid var(--if-line)}
+.logo{font:800 20px var(--if-font);color:var(--if-navy);letter-spacing:-.02em}.logo span{color:var(--if-cyan)}
+.crumbs{font-size:14px;color:var(--if-grey)}.stamp{margin-left:auto;font-size:12px;color:var(--if-grey)}
+.lvl{display:inline-block;padding:3px 10px;border-radius:30px;font:700 12px/1.4 var(--if-font);color:#fff;background:var(--if-blue)}
+.lvl.l1{background:var(--if-navy)}.lvl.l3{background:var(--if-grey)}
+footer{border-top:1px solid var(--if-line);margin-top:48px;padding:16px 32px;font-size:13px;color:var(--if-grey)}
+/* blocks pages write as HTML */
+.story{background:var(--if-tint);border-left:8px solid var(--if-blue);border-radius:0 16px 16px 0;padding:20px 24px;color:var(--if-ink)}
+.card{background:var(--if-surface);border-radius:16px;padding:20px 22px}
+.story,.card,.warn,.roles{margin:1.5rem 0}
+.warn{background:#fff8e6;border-radius:16px;padding:16px 20px}.warn h3{color:#7a5200;margin-top:0}
+.roles{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px}
+.role{background:#fff;border:1px solid var(--if-line);border-radius:16px;padding:14px}.role p{margin:0}
+.role .who{font-weight:700;color:var(--if-ink)}.role .job{font-size:13px;color:var(--if-grey)}
+.flow{display:flex;flex-wrap:wrap;align-items:stretch;gap:8px;margin:18px 0}
+.flow .st{flex:1;min-width:110px;background:#fff;border:2px solid var(--if-line);border-radius:14px;padding:12px;text-align:center;font-size:14px;color:var(--if-ink)}
+.next{display:flex;justify-content:space-between;gap:16px;border-top:1px solid var(--if-line);padding-top:16px;margin-top:40px;font-weight:600}
+.flow .st.on{background:var(--if-blue);border-color:var(--if-blue);color:#fff}
+/* screenshot with numbered callouts: <figure class="shot"><img ...><span class="co" style="left:..%;top:..%">1</span></figure> */
+.shot{position:relative;margin:1.2rem 0;border:1px solid var(--if-line);border-radius:12px;box-shadow:var(--if-shadow);overflow:hidden}
+.shot img{display:block;width:100%}
+.co{position:absolute;width:34px;height:34px;margin:-17px 0 0 -17px;border-radius:50%;background:var(--if-blue);color:#fff;font:700 16px/34px var(--if-font);text-align:center;box-shadow:0 0 0 4px rgba(255,255,255,.9)}
+ol.legend{padding-left:0;list-style:none;counter-reset:c}ol.legend li{counter-increment:c;position:relative;padding-left:36px;margin:8px 0}
+ol.legend li::before{content:counter(c);position:absolute;left:0;top:1px;width:26px;height:26px;border-radius:50%;background:var(--if-blue);color:#fff;font:700 13px/26px var(--if-font);text-align:center}
+/* layout A */
+.layout-a main{max-width:820px;margin:0 auto;padding:40px 24px 80px}
+/* layout B */
+.layout-b .hero{background:var(--if-grad);padding:48px 48px 56px;border-radius:0 0 40px 40px}
+.layout-b .hero h1{color:#fff}.layout-b .hero p{color:#e6f4ff;max-width:720px}
+.layout-b main{max-width:1180px;margin:0 auto;padding:32px 24px 80px;counter-reset:step}
+.layout-b .row{display:grid;grid-template-columns:70px 1fr 1fr;gap:20px;padding:22px 0;border-bottom:1px solid var(--if-line);counter-increment:step}
+.layout-b .row::before{content:counter(step);font:800 40px/1 var(--if-font);color:var(--if-line)}
+.layout-b .row .wide{grid-column:2 / -1}
+.layout-b .life{color:var(--if-ink)}.layout-b .prod{background:var(--if-surface);border-radius:14px;padding:14px 16px;font-size:15px}
+.layout-b .life>:first-child,.layout-b .prod>:first-child{margin-top:0}
+@media (max-width:760px){.layout-b .row{grid-template-columns:1fr}.layout-b .row .wide{grid-column:auto}.layout-b .row::before{font-size:28px}}
+@media print{.topbar,footer{display:none}.shot{box-shadow:none}h2{page-break-after:avoid}}
+</style></head>
+<body class="layout-a">
+<header class="topbar"><span class="logo">interfacing<span>.</span></span>
+<span class="crumbs">QMS training</span><span class="stamp">QMS ext 406, checked on the demo environment</span></header>
+<main><h1 id="appendix-b-faq-and-common-mistakes">Appendix B: FAQ and common mistakes</h1>
+<p>The questions people ask most in their first weeks, then every "Common mistakes" box of the pack in one place.</p>
+<h2 id="questions">Questions</h2>
+<h3 id="i-cannot-plan-an-audit-from-a-program-why">I cannot plan an audit from a program. Why?</h3>
+<p>Only the leader of the program's team can plan it. Check the team on the program and its leader in <strong>Team List</strong>. See chapters 07 and 08.</p>
+<h3 id="i-expected-a-task-and-it-is-not-there">I expected a task and it is not there.</h3>
+<p>Look in <strong>To Do</strong>, not only in your email. The first task of a planned audit arrives on its planned start date, not when the audit is created. An evidence round starts on its own start date. See chapter 05.</p>
+<h3 id="the-finding-lists-on-the-sign-off-are-empty">The finding lists on the sign-off are empty.</h3>
+<p><strong>Finding(s) for CAPA</strong> offers only major findings, and each finding can be handed over once. If the lists are still empty, open the CAPA or quality event by hand with <strong>New CAPA</strong> or <strong>New Quality Event</strong> and link the audit. See chapter 11.</p>
+<h3 id="can-one-finding-go-to-a-capa-and-a-quality-event">Can one finding go to a CAPA and a quality event?</h3>
+<p>No. A finding is handed over once. If a quality event later turns out to need a CAPA, the quality event moves on to one.</p>
+<h3 id="what-does-riv-capa-afi-00193-mean">What does RIV-CAPA-AFI-00193 mean?</h3>
+<p>RIV is the site code, CAPA the record type, AFI the source, an internal audit finding, and 00193 the running number. See chapter 12.</p>
+<h3 id="my-capa-has-no-effectiveness-plan">My CAPA has no effectiveness plan.</h3>
+<p>A CAPA creates one only when its <strong>Frequency</strong> under <strong>Effectiveness Monitoring</strong> is set. See chapter 12.</p>
+<h3 id="why-do-my-capa-action-items-say-action-items-no-capa">Why do my CAPA action items say "Action Items (No CAPA)"?</h3>
+<p>That is the name of the process that runs every action item, wherever it comes from. The name is misleading; the action item still belongs to the CAPA.</p>
+<h3 id="the-effectiveness-check-failed-do-i-open-a-new-capa">The effectiveness check failed. Do I open a new CAPA?</h3>
+<p>No. In <strong>Check Effectiveness And Approve</strong>, mark the actions to redo and pick <strong>Execute Action(s)</strong>. They go out again within the same CAPA. If the root cause was wrong, say so in the notes. See chapters 03 and 12.</p>
+<h3 id="who-can-see-the-audit-menus">Who can see the audit menus?</h3>
+<p>Everyone. Roles decide who gets a task, not who can open a form. See chapter 15.</p>
+<h2 id="common-mistakes-by-chapter">Common mistakes, by chapter</h2>
+<h3 id="01-why-companies-audit-themselves">01 Why companies audit themselves</h3>
+<ul>
+<li>Treating the audit as a test that people pass or fail. People then hide problems, and the audit finds nothing useful.</li>
+<li>Letting people audit their own area. They see what they expect to see.</li>
+<li>Auditing only before the certification visit. A yearly rush finds less than a steady plan.</li>
+</ul>
+<h3 id="02-how-an-internal-audit-works">02 How an internal audit works</h3>
+<ul>
+<li>Writing a finding without evidence. "Some gauges look old" cannot be checked. "Gauge G-201, due 1 August, used on 14 October" can.</li>
+<li>Grading every finding as major. When everything is urgent, nothing is.</li>
+<li>Closing the audit with findings nobody owns. Every finding that needs work goes to a CAPA or a quality event before sign-off.</li>
+</ul>
+<h3 id="03-from-finding-to-fix-capa">03 From finding to fix: CAPA</h3>
+<ul>
+<li>Stopping at the correction. The gauges get recalibrated, and the cause stays.</li>
+<li>Naming a person as the root cause. "Operator error" leads to retraining one person, and the next person makes the same mistake.</li>
+<li>Closing the CAPA when the actions are done, without an effectiveness check.</li>
+<li>Opening a new CAPA when the check fails. Reopen the root cause analysis of the same one instead.</li>
+</ul>
+<h3 id="04-not-every-finding-needs-a-capa">04 Not every finding needs a CAPA</h3>
+<ul>
+<li>Sending every finding to a CAPA. The CAPA team drowns in small slips, and the serious problems wait.</li>
+<li>Fixing a slip and never looking again. Two slips of the same kind are a pattern, and a pattern needs a CAPA.</li>
+<li>Ignoring observations because they need no action. They are the cheapest problems to fix, before they become findings.</li>
+</ul>
+<h3 id="05-finding-your-way">05 Finding your way</h3>
+<ul>
+<li>Waiting for an email instead of checking <strong>To Do</strong>. The task is there even when the email was filtered as spam.</li>
+<li>Closing the panel without <strong>Save</strong>. Unsaved entries are lost.</li>
+<li>Picking a <strong>Task Resolution</strong> and forgetting <strong>Submit</strong>. The task stays open, and the next person never gets it.</li>
+</ul>
+<h3 id="06-requirements-and-tests">06 Requirements and tests</h3>
+<ul>
+<li>Writing a requirement nobody can check, such as "Gauges are well maintained". Write what an auditor can see or count.</li>
+<li>Copying the same rule twice under different names. Search the list before you add.</li>
+<li>Adding a test to every requirement. A test is for proof over time. A label on a gauge needs one look, not a sample.</li>
+</ul>
+<h3 id="07-audit-programs">07 Audit programs</h3>
+<ul>
+<li>Picking the wrong team. The team's leader approves the program and is the only one who can plan it.</li>
+<li>Writing a new program each year. Copy last year's and change what changed.</li>
+<li>Approving a program without reading the requirements. A wrong requirement in the program means a wasted audit.</li>
+</ul>
+<h3 id="08-planning-and-scheduling-an-audit">08 Planning and scheduling an audit</h3>
+<ul>
+<li>Planning the audit as someone other than the team leader. The product refuses to plan it.</li>
+<li>A planned start date before the program's start of period. The product rejects the dates.</li>
+<li>Leaving every requirement with the lead auditor. Share them, or one person does the whole audit.</li>
+<li>Forgetting the auditees. They get no task, so the emails are all they see.</li>
+</ul>
+<h3 id="09-collecting-evidence">09 Collecting evidence</h3>
+<ul>
+<li>Attaching evidence from the wrong period. Check the round dates in the task subject first.</li>
+<li>Approving evidence without opening it. The auditor relies on it as checked.</li>
+<li>Leaving round 2 for later and forgetting it. Each round has its own task and its own dates.</li>
+</ul>
+<h3 id="10-running-the-audit-and-recording-findings">10 Running the audit and recording findings</h3>
+<ul>
+<li>Closing the requirement panel and the task without <strong>Save</strong> on the task. The findings are lost.</li>
+<li>Notes without facts. "Some gauges are overdue" is not a finding. Name the gauges and the dates.</li>
+<li>Grading by feeling. Use the rules in chapter 02. Systemic or reaching a customer is major, one slip is minor.</li>
+<li>Submitting the lead auditor's task before the other auditors are done. The product warns that their tasks are still open.</li>
+</ul>
+<h3 id="11-signing-off-and-handing-findings-over">11 Signing off and handing findings over</h3>
+<ul>
+<li>Signing off before handing the findings over. Check the finding lists first.</li>
+<li>Picking several findings at once when each needs its own owner. They end up in one record.</li>
+<li>Forgetting the reviewer. Without <strong>QE / CAPA Reviewer</strong>, nothing can be created.</li>
+</ul>
+<h3 id="12-running-a-capa">12 Running a CAPA</h3>
+<ul>
+<li>Approving a plan with only a correction in it. The cause stays, and the problem comes back.</li>
+<li>Filling in the effectiveness check on the day the actions finish. Give the fix time to show.</li>
+<li>Leaving the effectiveness notes empty. The person closing the CAPA has nothing to judge.</li>
+<li>Leaving <strong>Frequency</strong> empty when the check must repeat. Without it, no effectiveness plan is created.</li>
+</ul>
+<h3 id="13-action-items-and-the-quality-event-route">13 Action items, and the quality event route</h3>
+<ul>
+<li>Clicking <strong>Action Complete</strong> without <strong>Enter your findings</strong> or a <strong>Resolution</strong>. The product refuses the task.</li>
+<li>Marking a temporary fix as <strong>Permanent</strong>. The effectiveness check then looks at the wrong thing.</li>
+<li>Signing off an action without opening the evidence.</li>
+<li>Sending a pattern of slips through quality events one by one. The same slip twice needs a CAPA.</li>
+</ul>
+<h3 id="14-keeping-track-lists-and-dashboards">14 Keeping track: lists and dashboards</h3>
+<ul>
+<li>Reading a dashboard as the state of one audit. The charts count everything in the system.</li>
+<li>Looking only at <strong>My Action List</strong>. It shows your own actions, not your team's.</li>
+<li>Treating "completed" as "effective". An action can be done and still not fix the problem. The CAPA's effectiveness check answers that.</li>
+</ul>
+<h3 id="15-setting-up-audit-and-capa">15 Setting up Audit and CAPA</h3>
+<ul>
+<li>Going live with empty lists. Users find empty dropdowns and type workarounds into text fields.</li>
+<li>A site without a code. The CAPA ID then has no site prefix.</li>
+<li>No <strong>Director of Quality</strong> role. Every action item needs a reviewer picked by hand.</li>
+<li>A team without members. The audit owner cannot pick any auditors.</li>
+</ul>
+<h3 id="16-connection-to-the-process-repository">16 Connection to the process repository</h3>
+<ul>
+<li>Importing a whole folder when only a few rules apply. The requirement list fills with items nobody audits.</li>
+<li>Forgetting <strong>Sync by Module</strong> after the repository changes. The requirements keep the old wording.</li>
+<li>Expecting archived results without setting the <strong>EPC Settings</strong> folders.</li>
+</ul>
+<div class="next"><a href="appendix-a-iso-mapping.html">Back: Appendix A, ISO mapping</a><a href="00-start-here.html">Start here</a></div></main>
+</body></html>

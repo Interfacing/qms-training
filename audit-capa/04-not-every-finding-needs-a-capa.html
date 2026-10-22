@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Not every finding needs a CAPA</title>
+<style>/* Page CSS for the QMS training docs, from the template decision (#2087).
+   Layout A (Level 1): one long story page. Layout B (Levels 2 and 3): one row per step,
+   real life on the left and the product on the right. build.py inlines this file into every page. */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300..800&display=swap');
+:root{--if-navy:#002e56;--if-blue:#0371c3;--if-blue-dark:#0757a2;--if-cyan:#1db5fc;--if-ink:#000229;--if-text:#5f6368;
+--if-tint:#f0f8ff;--if-surface:#f7f9fb;--if-line:#dae4ed;--if-grey:#8c8c8c;
+--if-font:"Plus Jakarta Sans",system-ui,sans-serif;--if-shadow:0 10px 30px rgba(0,46,86,.12);
+--if-grad:linear-gradient(135deg,#1db5fc 0%,#0371c3 60%,#0757a2 100%)}
+*{box-sizing:border-box}
+body{margin:0;font:17px/1.65 var(--if-font);color:var(--if-text);background:#fff}
+h1,h2,h3,h4{color:var(--if-ink);line-height:1.2;margin:1.6em 0 .5em}h1{font-size:44px;font-weight:700;margin-top:0}
+h2{font-size:30px;font-weight:700}h3{font-size:21px;font-weight:700}
+a{color:var(--if-blue)}strong{color:var(--if-ink)}
+img{max-width:100%}
+code{background:var(--if-surface);border:1px solid var(--if-line);border-radius:4px;padding:.1em .35em;font-size:.88em}
+table{border-collapse:collapse;width:100%;font-size:15px;margin:1rem 0}
+th,td{border-bottom:1px solid var(--if-line);padding:.5rem .65rem;text-align:left;vertical-align:top}
+th{color:var(--if-ink);font-weight:700;background:var(--if-surface)}
+.table-wrap{overflow-x:auto}
+blockquote{margin:1.2rem 0;padding:16px 20px;background:#fff8e6;border-radius:16px;color:#5a3d00}
+/* top bar and footer */
+.topbar{display:flex;align-items:center;gap:16px;padding:14px 32px;border-bottom:1px solid var(--if-line)}
+.logo{font:800 20px var(--if-font);color:var(--if-navy);letter-spacing:-.02em}.logo span{color:var(--if-cyan)}
+.crumbs{font-size:14px;color:var(--if-grey)}.stamp{margin-left:auto;font-size:12px;color:var(--if-grey)}
+.lvl{display:inline-block;padding:3px 10px;border-radius:30px;font:700 12px/1.4 var(--if-font);color:#fff;background:var(--if-blue)}
+.lvl.l1{background:var(--if-navy)}.lvl.l3{background:var(--if-grey)}
+footer{border-top:1px solid var(--if-line);margin-top:48px;padding:16px 32px;font-size:13px;color:var(--if-grey)}
+/* blocks pages write as HTML */
+.story{background:var(--if-tint);border-left:8px solid var(--if-blue);border-radius:0 16px 16px 0;padding:20px 24px;color:var(--if-ink)}
+.card{background:var(--if-surface);border-radius:16px;padding:20px 22px}
+.story,.card,.warn,.roles{margin:1.5rem 0}
+.warn{background:#fff8e6;border-radius:16px;padding:16px 20px}.warn h3{color:#7a5200;margin-top:0}
+.roles{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px}
+.role{background:#fff;border:1px solid var(--if-line);border-radius:16px;padding:14px}.role p{margin:0}
+.role .who{font-weight:700;color:var(--if-ink)}.role .job{font-size:13px;color:var(--if-grey)}
+.flow{display:flex;flex-wrap:wrap;align-items:stretch;gap:8px;margin:18px 0}
+.flow .st{flex:1;min-width:110px;background:#fff;border:2px solid var(--if-line);border-radius:14px;padding:12px;text-align:center;font-size:14px;color:var(--if-ink)}
+.next{display:flex;justify-content:space-between;gap:16px;border-top:1px solid var(--if-line);padding-top:16px;margin-top:40px;font-weight:600}
+.flow .st.on{background:var(--if-blue);border-color:var(--if-blue);color:#fff}
+/* screenshot with numbered callouts: <figure class="shot"><img ...><span class="co" style="left:..%;top:..%">1</span></figure> */
+.shot{position:relative;margin:1.2rem 0;border:1px solid var(--if-line);border-radius:12px;box-shadow:var(--if-shadow);overflow:hidden}
+.shot img{display:block;width:100%}
+.co{position:absolute;width:34px;height:34px;margin:-17px 0 0 -17px;border-radius:50%;background:var(--if-blue);color:#fff;font:700 16px/34px var(--if-font);text-align:center;box-shadow:0 0 0 4px rgba(255,255,255,.9)}
+ol.legend{padding-left:0;list-style:none;counter-reset:c}ol.legend li{counter-increment:c;position:relative;padding-left:36px;margin:8px 0}
+ol.legend li::before{content:counter(c);position:absolute;left:0;top:1px;width:26px;height:26px;border-radius:50%;background:var(--if-blue);color:#fff;font:700 13px/26px var(--if-font);text-align:center}
+/* layout A */
+.layout-a main{max-width:820px;margin:0 auto;padding:40px 24px 80px}
+/* layout B */
+.layout-b .hero{background:var(--if-grad);padding:48px 48px 56px;border-radius:0 0 40px 40px}
+.layout-b .hero h1{color:#fff}.layout-b .hero p{color:#e6f4ff;max-width:720px}
+.layout-b main{max-width:1180px;margin:0 auto;padding:32px 24px 80px;counter-reset:step}
+.layout-b .row{display:grid;grid-template-columns:70px 1fr 1fr;gap:20px;padding:22px 0;border-bottom:1px solid var(--if-line);counter-increment:step}
+.layout-b .row::before{content:counter(step);font:800 40px/1 var(--if-font);color:var(--if-line)}
+.layout-b .row .wide{grid-column:2 / -1}
+.layout-b .life{color:var(--if-ink)}.layout-b .prod{background:var(--if-surface);border-radius:14px;padding:14px 16px;font-size:15px}
+.layout-b .life>:first-child,.layout-b .prod>:first-child{margin-top:0}
+@media (max-width:760px){.layout-b .row{grid-template-columns:1fr}.layout-b .row .wide{grid-column:auto}.layout-b .row::before{font-size:28px}}
+@media print{.topbar,footer{display:none}.shot{box-shadow:none}h2{page-break-after:avoid}}
+</style></head>
+<body class="layout-a">
+<header class="topbar"><span class="logo">interfacing<span>.</span></span>
+<span class="crumbs">QMS training</span> <span class="lvl l1">Level 1 · In real life</span><span class="stamp">QMS ext 406, checked on the demo environment</span></header>
+<main><h1 id="not-every-finding-needs-a-capa">Not every finding needs a CAPA</h1>
+<p>A CAPA takes weeks and involves several people. That effort is right for a problem with a deep cause. It is too much for a one-off slip. This chapter shows the lighter routes for the other two findings from the Cedar Valley audit.</p>
+<p>Key words: <a href="../glossary.html#quality-event">quality event</a>, <a href="../glossary.html#minor-finding">minor finding</a>, <a href="../glossary.html#observation">observation</a>, <a href="../glossary.html#correction">correction</a>.</p>
+<h2 id="three-findings-three-routes">Three findings, three routes</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Finding</th>
+<th>Route</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Overdue gauges, major</td>
+<td>CAPA</td>
+<td>systemic, and the gauges were used to accept parts</td>
+</tr>
+<tr>
+<td>Old work instruction at station 5, minor</td>
+<td>quality event</td>
+<td>one slip, the document control around it works</td>
+</tr>
+<tr>
+<td>Records in two spreadsheets, observation</td>
+<td>recorded, nothing else</td>
+<td>nothing is broken yet</td>
+</tr>
+</tbody>
+</table></div>
+<p>Cedar Valley follows one rule. A major finding goes straight to a CAPA. Any other finding that needs work goes to a quality event first. If the quality event turns out to need a root cause and lasting fixes, it moves on to a CAPA.</p>
+<h2 id="what-a-quality-event-is">What a quality event is</h2>
+<p>A quality event is any quality problem the company records so it can be looked at: a non-conformity, a customer complaint, a deviation from a procedure. Many companies call it a nonconformance report, or NCR. A quality event is reviewed first, and the review decides how much work it needs.</p>
+<p>The reviewer has four choices:</p>
+<ul>
+<li>Fix it now, with no further action.</li>
+<li>Fix it now and add one or more action items.</li>
+<li>Look deeper: gather details, look at the risks, and plan actions. This route can lead to a CAPA.</li>
+<li>Decide there is no real problem, and close it.</li>
+</ul>
+<h2 id="the-minor-finding">The minor finding</h2>
+<div class="story">
+<p>Station 5 had revision B of work instruction WI-214 on the wall. Revision C was released in June. Every other station had revision C.</p>
+<p>Elena reviews the quality event. One station, one printed copy, and the document control system works everywhere else. It is a slip, not a broken system. She chooses to fix it now with one action item for Grace's team: "Replace WI-214 at station 5 with revision C and remove all printed copies of revision B."</p>
+<p>Grace posts revision C and collects two old copies. Elena signs off the action, and the quality event closes.</p>
+</div>
+<p>The fix is a correction only. There is no root cause analysis, because there is no sign of a deeper cause. If a second station shows an old revision at the next audit, the picture changes. Then it is no longer a slip, and it needs a CAPA.</p>
+<h2 id="the-observation">The observation</h2>
+<div class="story">
+<p>Calibration records are kept in two spreadsheets. Both are complete. Nobody is sure which one is the master. No requirement is broken today, so Elena leaves the observation as it is. It stays in the audit report, and next year's audit will look at it again.</p>
+</div>
+<p>An observation is a warning, not a problem. Some companies turn observations into improvement actions, such as moving the records into one place. That is a choice, not a duty.</p>
+<h2 id="who-does-what">Who does what</h2>
+<div class="roles">
+<div class="role"><p class="who">Reviewer</p><p class="job">Elena</p><p>Reviews the quality event, picks the route, signs off the action.</p></div>
+<div class="role"><p class="who">Action item owner</p><p class="job">Grace</p><p>Replaces the work instruction.</p></div>
+</div>
+
+<div class="warn">
+<h3 id="common-mistakes">Common mistakes</h3>
+<ul>
+<li>Sending every finding to a CAPA. The CAPA team drowns in small slips, and the serious problems wait.</li>
+<li>Fixing a slip and never looking again. Two slips of the same kind are a pattern, and a pattern needs a CAPA.</li>
+<li>Ignoring observations because they need no action. They are the cheapest problems to fix, before they become findings.</li>
+</ul>
+</div>
+<div class="card">
+<h3 id="for-iso-readers">For ISO readers</h3>
+<p>ISO 9001 clause 10.2 asks the company to evaluate whether action is needed to remove the cause of a nonconformity. A corrective action must fit the effects of the problem. A full root cause analysis for every slip is not required. "Quality event" and "observation" are not ISO terms. ISO speaks of nonconformities and of opportunities for improvement.</p>
+</div>
+<div class="next"><a href="03-from-finding-to-fix.html">Back: From finding to fix: CAPA</a><a href="05-finding-your-way.html">Next: Finding your way</a></div></main>
+</body></html>

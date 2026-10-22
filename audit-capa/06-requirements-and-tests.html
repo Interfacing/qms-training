@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Requirements and tests</title>
+<style>/* Page CSS for the QMS training docs, from the template decision (#2087).
+   Layout A (Level 1): one long story page. Layout B (Levels 2 and 3): one row per step,
+   real life on the left and the product on the right. build.py inlines this file into every page. */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300..800&display=swap');
+:root{--if-navy:#002e56;--if-blue:#0371c3;--if-blue-dark:#0757a2;--if-cyan:#1db5fc;--if-ink:#000229;--if-text:#5f6368;
+--if-tint:#f0f8ff;--if-surface:#f7f9fb;--if-line:#dae4ed;--if-grey:#8c8c8c;
+--if-font:"Plus Jakarta Sans",system-ui,sans-serif;--if-shadow:0 10px 30px rgba(0,46,86,.12);
+--if-grad:linear-gradient(135deg,#1db5fc 0%,#0371c3 60%,#0757a2 100%)}
+*{box-sizing:border-box}
+body{margin:0;font:17px/1.65 var(--if-font);color:var(--if-text);background:#fff}
+h1,h2,h3,h4{color:var(--if-ink);line-height:1.2;margin:1.6em 0 .5em}h1{font-size:44px;font-weight:700;margin-top:0}
+h2{font-size:30px;font-weight:700}h3{font-size:21px;font-weight:700}
+a{color:var(--if-blue)}strong{color:var(--if-ink)}
+img{max-width:100%}
+code{background:var(--if-surface);border:1px solid var(--if-line);border-radius:4px;padding:.1em .35em;font-size:.88em}
+table{border-collapse:collapse;width:100%;font-size:15px;margin:1rem 0}
+th,td{border-bottom:1px solid var(--if-line);padding:.5rem .65rem;text-align:left;vertical-align:top}
+th{color:var(--if-ink);font-weight:700;background:var(--if-surface)}
+.table-wrap{overflow-x:auto}
+blockquote{margin:1.2rem 0;padding:16px 20px;background:#fff8e6;border-radius:16px;color:#5a3d00}
+/* top bar and footer */
+.topbar{display:flex;align-items:center;gap:16px;padding:14px 32px;border-bottom:1px solid var(--if-line)}
+.logo{font:800 20px var(--if-font);color:var(--if-navy);letter-spacing:-.02em}.logo span{color:var(--if-cyan)}
+.crumbs{font-size:14px;color:var(--if-grey)}.stamp{margin-left:auto;font-size:12px;color:var(--if-grey)}
+.lvl{display:inline-block;padding:3px 10px;border-radius:30px;font:700 12px/1.4 var(--if-font);color:#fff;background:var(--if-blue)}
+.lvl.l1{background:var(--if-navy)}.lvl.l3{background:var(--if-grey)}
+footer{border-top:1px solid var(--if-line);margin-top:48px;padding:16px 32px;font-size:13px;color:var(--if-grey)}
+/* blocks pages write as HTML */
+.story{background:var(--if-tint);border-left:8px solid var(--if-blue);border-radius:0 16px 16px 0;padding:20px 24px;color:var(--if-ink)}
+.card{background:var(--if-surface);border-radius:16px;padding:20px 22px}
+.story,.card,.warn,.roles{margin:1.5rem 0}
+.warn{background:#fff8e6;border-radius:16px;padding:16px 20px}.warn h3{color:#7a5200;margin-top:0}
+.roles{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px}
+.role{background:#fff;border:1px solid var(--if-line);border-radius:16px;padding:14px}.role p{margin:0}
+.role .who{font-weight:700;color:var(--if-ink)}.role .job{font-size:13px;color:var(--if-grey)}
+.flow{display:flex;flex-wrap:wrap;align-items:stretch;gap:8px;margin:18px 0}
+.flow .st{flex:1;min-width:110px;background:#fff;border:2px solid var(--if-line);border-radius:14px;padding:12px;text-align:center;font-size:14px;color:var(--if-ink)}
+.next{display:flex;justify-content:space-between;gap:16px;border-top:1px solid var(--if-line);padding-top:16px;margin-top:40px;font-weight:600}
+.flow .st.on{background:var(--if-blue);border-color:var(--if-blue);color:#fff}
+/* screenshot with numbered callouts: <figure class="shot"><img ...><span class="co" style="left:..%;top:..%">1</span></figure> */
+.shot{position:relative;margin:1.2rem 0;border:1px solid var(--if-line);border-radius:12px;box-shadow:var(--if-shadow);overflow:hidden}
+.shot img{display:block;width:100%}
+.co{position:absolute;width:34px;height:34px;margin:-17px 0 0 -17px;border-radius:50%;background:var(--if-blue);color:#fff;font:700 16px/34px var(--if-font);text-align:center;box-shadow:0 0 0 4px rgba(255,255,255,.9)}
+ol.legend{padding-left:0;list-style:none;counter-reset:c}ol.legend li{counter-increment:c;position:relative;padding-left:36px;margin:8px 0}
+ol.legend li::before{content:counter(c);position:absolute;left:0;top:1px;width:26px;height:26px;border-radius:50%;background:var(--if-blue);color:#fff;font:700 13px/26px var(--if-font);text-align:center}
+/* layout A */
+.layout-a main{max-width:820px;margin:0 auto;padding:40px 24px 80px}
+/* layout B */
+.layout-b .hero{background:var(--if-grad);padding:48px 48px 56px;border-radius:0 0 40px 40px}
+.layout-b .hero h1{color:#fff}.layout-b .hero p{color:#e6f4ff;max-width:720px}
+.layout-b main{max-width:1180px;margin:0 auto;padding:32px 24px 80px;counter-reset:step}
+.layout-b .row{display:grid;grid-template-columns:70px 1fr 1fr;gap:20px;padding:22px 0;border-bottom:1px solid var(--if-line);counter-increment:step}
+.layout-b .row::before{content:counter(step);font:800 40px/1 var(--if-font);color:var(--if-line)}
+.layout-b .row .wide{grid-column:2 / -1}
+.layout-b .life{color:var(--if-ink)}.layout-b .prod{background:var(--if-surface);border-radius:14px;padding:14px 16px;font-size:15px}
+.layout-b .life>:first-child,.layout-b .prod>:first-child{margin-top:0}
+@media (max-width:760px){.layout-b .row{grid-template-columns:1fr}.layout-b .row .wide{grid-column:auto}.layout-b .row::before{font-size:28px}}
+@media print{.topbar,footer{display:none}.shot{box-shadow:none}h2{page-break-after:avoid}}
+</style></head>
+<body class="layout-b">
+<header class="topbar"><span class="logo">interfacing<span>.</span></span>
+<span class="crumbs">QMS training</span> <span class="lvl l2">Level 2 · In the product</span><span class="stamp">QMS ext 406, checked on the demo environment</span></header>
+<div class="hero"><h1 id="requirements-and-tests">Requirements and tests</h1>
+<p>Before anyone can audit, the rules must be in the product. This chapter shows how Priya records the four Cedar Valley requirements and the test for R1.</p></div>
+<main>
+<p>All screens in this chapter are under <strong>Apps</strong> &gt; <strong>Quality Management System</strong> &gt; <strong>Audit Management</strong> &gt; <strong>Internal Audit Program Management</strong>, in <strong>Requirement Management</strong> and <strong>Testing Management</strong>.</p>
+<div class="row">
+<div class="life">
+<h3 id="write-down-a-requirement">Write down a requirement</h3>
+<p>Priya copies R1 from the calibration procedure: "Measuring equipment is calibrated every 12 months." She adds a short description, so an auditor knows what the rule means in practice.</p>
+</div>
+<div class="prod">
+<p>Open <strong>Requirement Management</strong> &gt; <strong>Create a Requirement</strong>. The same fields open when you edit a requirement from the list.</p>
+<figure class="shot"><img src="img/03-requirement-r1.png" alt="Requirement R1 open for editing"><span class="co" style="left:59.5%;top:16.5%">1</span><span class="co" style="left:64.6%;top:23.1%">2</span><span class="co" style="left:36.7%;top:53.5%">3</span><span class="co" style="left:23.4%;top:75.3%">4</span></figure>
+<ol class="legend">
+<li><strong>Requirement Name</strong>: the rule in one sentence. <strong>Requirement Type</strong> is <strong>Audit</strong> for an audit requirement.</li>
+<li><strong>Linked Test(s)</strong>: the test that gathers proof for it.</li>
+<li><strong>Description</strong>: where the rule comes from and what it means.</li>
+<li><strong>Validation Checklist</strong>: questions the auditor answers on the day. The Cedar Valley requirements in the screenshots have none.</li>
+</ol>
+</div>
+</div>
+<div class="row">
+<div class="life">
+<h3 id="keep-them-in-one-library">Keep them in one library</h3>
+<p>A company collects hundreds of requirements over time. Programs reuse them, so each rule is written once.</p>
+</div>
+<div class="prod">
+<p><strong>Requirement Management</strong> &gt; <strong>Create &amp; Manage Requirements</strong> lists them all. R1 to R4 are numbers 24 to 27 here.</p>
+</div>
+<div class="wide">
+<figure class="shot"><img src="img/06-requirements-list.png" alt="The requirement list with R1 to R4 on top"><span class="co" style="left:2.8%;top:22%">1</span><span class="co" style="left:30.9%;top:54%">2</span><span class="co" style="left:79.9%;top:54%">3</span></figure>
+<ol class="legend">
+<li><strong>Add</strong> creates a requirement from the list.</li>
+<li>The four Cedar Valley requirements.</li>
+<li><strong>Requirement Type</strong> and <strong>Module</strong>. A requirement can also come from the process repository; chapter 16 shows how.</li>
+</ol>
+</div>
+</div>
+<div class="row">
+<div class="life">
+<h3 id="plan-the-proof">Plan the proof</h3>
+<p>One look at the shop floor cannot prove that every gauge was calibrated on time all year. Someone has to pull a sample of records. Priya adds a test to R1: "Sample 10 calibration records from the last quarter."</p>
+</div>
+<div class="prod">
+<p><strong>Testing Management</strong> &gt; <strong>Create Test</strong> adds a test. <strong>All Tests</strong> lists them. Link the test to the requirement in the requirement's <strong>Linked Test(s)</strong> field.</p>
+</div>
+<div class="wide">
+<figure class="shot"><img src="img/04-test-list.png" alt="The test list with the R1 test on top"><span class="co" style="left:32%;top:91%">1</span><span class="co" style="left:67.6%;top:91%">2</span></figure>
+<ol class="legend">
+<li>The test for R1, Test-00022.</li>
+<li>What the test is for, in one line.</li>
+</ol>
+</div>
+</div>
+<div class="row">
+<div class="life">
+<h3 id="say-how-much-proof-is-enough">Say how much proof is enough</h3>
+<p>A sample needs a size and a source. Tom will pick 10 records out of all the gauges on Line 2.</p>
+</div>
+<div class="prod">
+<p><strong>Testing Management</strong> &gt; <strong>Test Evidence Management</strong> describes the evidence a test needs.</p>
+</div>
+<div class="wide">
+<figure class="shot"><img src="img/05-test-evidence.png" alt="The evidence definition for the R1 test"><span class="co" style="left:34.2%;top:89%">1</span><span class="co" style="left:46.4%;top:89%">2</span><span class="co" style="left:54.2%;top:89%">3</span></figure>
+<ol class="legend">
+<li><strong>Sample Size</strong>: how many items to check, here 10.</li>
+<li><strong>Population</strong>: what the sample is drawn from, here all gauges on Line 2.</li>
+<li><strong>Frequency</strong>: how often the evidence is collected.</li>
+</ol>
+</div>
+</div>
+<div class="warn">
+<h3 id="common-mistakes">Common mistakes</h3>
+<ul>
+<li>Writing a requirement nobody can check, such as "Gauges are well maintained". Write what an auditor can see or count.</li>
+<li>Copying the same rule twice under different names. Search the list before you add.</li>
+<li>Adding a test to every requirement. A test is for proof over time. A label on a gauge needs one look, not a sample.</li>
+</ul>
+</div>
+<div class="next"><a href="05-finding-your-way.html">Back: Finding your way</a><a href="07-audit-programs.html">Next: Audit programs</a></div></main>
+</body></html>

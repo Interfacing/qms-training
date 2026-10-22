@@ -1,0 +1,450 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>QMS glossary</title>
+<style>/* Page CSS for the QMS training docs, from the template decision (#2087).
+   Layout A (Level 1): one long story page. Layout B (Levels 2 and 3): one row per step,
+   real life on the left and the product on the right. build.py inlines this file into every page. */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300..800&display=swap');
+:root{--if-navy:#002e56;--if-blue:#0371c3;--if-blue-dark:#0757a2;--if-cyan:#1db5fc;--if-ink:#000229;--if-text:#5f6368;
+--if-tint:#f0f8ff;--if-surface:#f7f9fb;--if-line:#dae4ed;--if-grey:#8c8c8c;
+--if-font:"Plus Jakarta Sans",system-ui,sans-serif;--if-shadow:0 10px 30px rgba(0,46,86,.12);
+--if-grad:linear-gradient(135deg,#1db5fc 0%,#0371c3 60%,#0757a2 100%)}
+*{box-sizing:border-box}
+body{margin:0;font:17px/1.65 var(--if-font);color:var(--if-text);background:#fff}
+h1,h2,h3,h4{color:var(--if-ink);line-height:1.2;margin:1.6em 0 .5em}h1{font-size:44px;font-weight:700;margin-top:0}
+h2{font-size:30px;font-weight:700}h3{font-size:21px;font-weight:700}
+a{color:var(--if-blue)}strong{color:var(--if-ink)}
+img{max-width:100%}
+code{background:var(--if-surface);border:1px solid var(--if-line);border-radius:4px;padding:.1em .35em;font-size:.88em}
+table{border-collapse:collapse;width:100%;font-size:15px;margin:1rem 0}
+th,td{border-bottom:1px solid var(--if-line);padding:.5rem .65rem;text-align:left;vertical-align:top}
+th{color:var(--if-ink);font-weight:700;background:var(--if-surface)}
+.table-wrap{overflow-x:auto}
+blockquote{margin:1.2rem 0;padding:16px 20px;background:#fff8e6;border-radius:16px;color:#5a3d00}
+/* top bar and footer */
+.topbar{display:flex;align-items:center;gap:16px;padding:14px 32px;border-bottom:1px solid var(--if-line)}
+.logo{font:800 20px var(--if-font);color:var(--if-navy);letter-spacing:-.02em}.logo span{color:var(--if-cyan)}
+.crumbs{font-size:14px;color:var(--if-grey)}.stamp{margin-left:auto;font-size:12px;color:var(--if-grey)}
+.lvl{display:inline-block;padding:3px 10px;border-radius:30px;font:700 12px/1.4 var(--if-font);color:#fff;background:var(--if-blue)}
+.lvl.l1{background:var(--if-navy)}.lvl.l3{background:var(--if-grey)}
+footer{border-top:1px solid var(--if-line);margin-top:48px;padding:16px 32px;font-size:13px;color:var(--if-grey)}
+/* blocks pages write as HTML */
+.story{background:var(--if-tint);border-left:8px solid var(--if-blue);border-radius:0 16px 16px 0;padding:20px 24px;color:var(--if-ink)}
+.card{background:var(--if-surface);border-radius:16px;padding:20px 22px}
+.story,.card,.warn,.roles{margin:1.5rem 0}
+.warn{background:#fff8e6;border-radius:16px;padding:16px 20px}.warn h3{color:#7a5200;margin-top:0}
+.roles{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px}
+.role{background:#fff;border:1px solid var(--if-line);border-radius:16px;padding:14px}.role p{margin:0}
+.role .who{font-weight:700;color:var(--if-ink)}.role .job{font-size:13px;color:var(--if-grey)}
+.flow{display:flex;flex-wrap:wrap;align-items:stretch;gap:8px;margin:18px 0}
+.flow .st{flex:1;min-width:110px;background:#fff;border:2px solid var(--if-line);border-radius:14px;padding:12px;text-align:center;font-size:14px;color:var(--if-ink)}
+.next{display:flex;justify-content:space-between;gap:16px;border-top:1px solid var(--if-line);padding-top:16px;margin-top:40px;font-weight:600}
+.flow .st.on{background:var(--if-blue);border-color:var(--if-blue);color:#fff}
+/* screenshot with numbered callouts: <figure class="shot"><img ...><span class="co" style="left:..%;top:..%">1</span></figure> */
+.shot{position:relative;margin:1.2rem 0;border:1px solid var(--if-line);border-radius:12px;box-shadow:var(--if-shadow);overflow:hidden}
+.shot img{display:block;width:100%}
+.co{position:absolute;width:34px;height:34px;margin:-17px 0 0 -17px;border-radius:50%;background:var(--if-blue);color:#fff;font:700 16px/34px var(--if-font);text-align:center;box-shadow:0 0 0 4px rgba(255,255,255,.9)}
+ol.legend{padding-left:0;list-style:none;counter-reset:c}ol.legend li{counter-increment:c;position:relative;padding-left:36px;margin:8px 0}
+ol.legend li::before{content:counter(c);position:absolute;left:0;top:1px;width:26px;height:26px;border-radius:50%;background:var(--if-blue);color:#fff;font:700 13px/26px var(--if-font);text-align:center}
+/* layout A */
+.layout-a main{max-width:820px;margin:0 auto;padding:40px 24px 80px}
+/* layout B */
+.layout-b .hero{background:var(--if-grad);padding:48px 48px 56px;border-radius:0 0 40px 40px}
+.layout-b .hero h1{color:#fff}.layout-b .hero p{color:#e6f4ff;max-width:720px}
+.layout-b main{max-width:1180px;margin:0 auto;padding:32px 24px 80px;counter-reset:step}
+.layout-b .row{display:grid;grid-template-columns:70px 1fr 1fr;gap:20px;padding:22px 0;border-bottom:1px solid var(--if-line);counter-increment:step}
+.layout-b .row::before{content:counter(step);font:800 40px/1 var(--if-font);color:var(--if-line)}
+.layout-b .row .wide{grid-column:2 / -1}
+.layout-b .life{color:var(--if-ink)}.layout-b .prod{background:var(--if-surface);border-radius:14px;padding:14px 16px;font-size:15px}
+.layout-b .life>:first-child,.layout-b .prod>:first-child{margin-top:0}
+@media (max-width:760px){.layout-b .row{grid-template-columns:1fr}.layout-b .row .wide{grid-column:auto}.layout-b .row::before{font-size:28px}}
+@media print{.topbar,footer{display:none}.shot{box-shadow:none}h2{page-break-after:avoid}}
+</style></head>
+<body class="layout-a">
+<header class="topbar"><span class="logo">interfacing<span>.</span></span>
+<span class="crumbs">QMS training</span><span class="stamp">QMS ext 406, checked on the demo environment</span></header>
+<main><h1 id="qms-glossary">QMS glossary</h1>
+<p>The words used across the QMS training pack, in plain English. Each entry gives the meaning, a real-life example, the label you see on screen, and the ISO term when it differs.</p>
+<p>How words are used in the pack:</p>
+<ul>
+<li>The text uses the word from this glossary.</li>
+<li>When a sentence points at something on screen, the screen label is shown in <strong>bold</strong>.</li>
+<li>The ISO term appears only here, so readers who know the standards can match the words.</li>
+</ul>
+<p>Covers: Internal Audit, CAPA and Action Items. Other modules add their words as they join the pack.</p>
+<h2 id="start-here">Start here</h2>
+<p>Twelve words are enough to follow the Audit and CAPA story:</p>
+<ol>
+<li><a href="#audit">Audit</a></li>
+<li><a href="#audit-program">Audit program</a></li>
+<li><a href="#audit-plan">Audit plan</a></li>
+<li><a href="#requirement">Requirement</a></li>
+<li><a href="#finding">Finding</a></li>
+<li><a href="#non-conformity">Non-conformity</a></li>
+<li><a href="#observation">Observation</a></li>
+<li><a href="#quality-event">Quality event</a></li>
+<li><a href="#capa">CAPA</a></li>
+<li><a href="#root-cause">Root cause</a></li>
+<li><a href="#action-item">Action item</a></li>
+<li><a href="#effectiveness-check">Effectiveness check</a></li>
+</ol>
+<h2 id="terms">Terms</h2>
+<h3 id="action-item">Action item</h3>
+<p>One piece of work, with one owner and a due date, that someone must do and someone else signs off.</p>
+<ul>
+<li>Example: "Add calibration due dates to the maintenance calendar", owned by the maintenance lead, due 15 March.</li>
+<li>On screen: <strong>Action Item</strong>, <strong>New Action</strong>, <strong>My Action List</strong>.</li>
+<li>ISO term: none. ISO talks about "actions"; the action item is how the product tracks one of them.</li>
+<li>Kinds: an action item has a <strong>Type</strong>, one of <strong>Correction</strong>, <strong>Corrective</strong>, <strong>Preventive</strong>, <strong>Improvement</strong> or <strong>Effectiveness check</strong>. Each matches the glossary entry of the same name.</li>
+</ul>
+<h3 id="audit">Audit</h3>
+<p>A planned, independent check of whether the company does what its own rules, its customers and the standards say it must. An internal audit is one the company runs on itself, with its own trained staff.</p>
+<ul>
+<li>Example: two staff from the quality team spend a day in the warehouse checking that incoming goods are inspected the way the procedure says.</li>
+<li>On screen: <strong>Audit Management</strong>, <strong>Internal Audit Program Management</strong>.</li>
+<li>ISO term: internal audit, ISO 9001 clause 9.2.</li>
+<li>Also known as: internal audit, self-audit, first-party audit.</li>
+</ul>
+<h3 id="audit-plan">Audit plan</h3>
+<p>One scheduled run of an audit program: the dates, the place, who audits and who is audited.</p>
+<ul>
+<li>Example: the "Warehouse receiving" program, run on 12 to 13 May at the Lyon site, led by the lead auditor with one auditor.</li>
+<li>On screen: <strong>Audit Plan</strong>, <strong>Manage Audit Plans</strong>, <strong>Manage Audit Schedules</strong>, <strong>Trigger Ad Hoc Audit (Unscheduled)</strong> for an audit that is not on the schedule.</li>
+<li>ISO term: audit plan.</li>
+<li>Also known as: audit, scheduled audit.</li>
+</ul>
+<h3 id="audit-program">Audit program</h3>
+<p>A reusable definition of an audit. It lists the requirements to check, the team and how often the audit runs. Once the team leader approves it, the audit owner can plan it again and again.</p>
+<ul>
+<li>Example: "Warehouse receiving", checking 8 requirements, run twice a year by the logistics audit team.</li>
+<li>On screen: <strong>Create Audit Program</strong>, <strong>Manage Audit Programs</strong>. The page you open is headed <strong>New Audit Definition</strong>.</li>
+<li>ISO term: none that matches exactly. ISO's "audit programme" means all the audits planned for a period, which is wider than one program here.</li>
+<li>Also known as: audit definition, audit template.</li>
+</ul>
+<h3 id="auditee">Auditee</h3>
+<p>A person or team whose work is audited. The product emails them before the audit, and they answer the auditor's questions.</p>
+<ul>
+<li>Example: the warehouse supervisor and the receiving clerks.</li>
+<li>On screen: <strong>Auditees</strong>, <strong>Auditees' Roles</strong>. Auditees get emails, not tasks.</li>
+<li>ISO term: auditee.</li>
+</ul>
+<h3 id="capa">CAPA</h3>
+<p>Short for Corrective and Preventive Action. A CAPA is the record that takes a serious problem from "what happened" through "why did it happen" to "what we changed, and proof that it worked".</p>
+<ul>
+<li>Example: a gauge was used after its calibration expired. The CAPA records the problem, finds the root cause, which is that nobody owned the calibration list, sets the actions, which are to name an owner and add reminders, and checks six months later that no gauge has expired since.</li>
+<li>On screen: <strong>CAPA</strong>, <strong>New CAPA</strong>, <strong>CAPA List</strong>.</li>
+<li>ISO term: corrective action, ISO 9001 clause 10.2. ISO 13485 also has a separate preventive action clause.</li>
+<li>Also known as: corrective action request, Corrective &amp; Preventative Action.</li>
+</ul>
+<h3 id="correction">Correction</h3>
+<p>Fixing the problem itself, right now, without asking why it happened.</p>
+<ul>
+<li>Example: take the gauge out of use, recalibrate it, and re-check the parts it measured.</li>
+<li>On screen: the action item <strong>Type</strong> <strong>Correction</strong>.</li>
+<li>ISO term: correction.</li>
+<li>Not the same as a corrective action, which removes the cause.</li>
+</ul>
+<h3 id="corrective-action">Corrective action</h3>
+<p>Removing the cause of a problem so that it does not happen again.</p>
+<ul>
+<li>Example: name an owner for the calibration list and set up automatic reminders before each due date.</li>
+<li>On screen: the action item <strong>Type</strong> <strong>Corrective</strong>. The CAPA as a whole is the corrective action record.</li>
+<li>ISO term: corrective action.</li>
+</ul>
+<h3 id="effectiveness-check">Effectiveness check</h3>
+<p>Proof, some time after the fix, that the corrective action worked. If it did not, the root cause analysis is opened again.</p>
+<ul>
+<li>Example: six months after the reminders were set up, the next audit finds no expired gauges.</li>
+<li>On screen: the CAPA step <strong>Check Effectiveness &amp; Approve</strong>, the field <strong>Effectiveness Check Result</strong>, and the action item <strong>Type</strong> <strong>Effectiveness check</strong>.</li>
+<li>ISO term: review of the effectiveness of corrective action, ISO 9001 clause 10.2.</li>
+<li>Also known as: effectiveness verification, efficacy check.</li>
+</ul>
+<h3 id="effectiveness-plan">Effectiveness plan</h3>
+<p>A schedule of repeated effectiveness checks: one check every few days or weeks until an end date.</p>
+<ul>
+<li>Example: check the calibration list every 30 days from March to August.</li>
+<li>On screen: <strong>Effectiveness Plan</strong>, <strong>Create Effectiveness Plan</strong>. A CAPA creates one when its actions are approved, but only if its <strong>Frequency</strong> under <strong>Effectiveness Monitoring</strong> is set.</li>
+<li>ISO term: none.</li>
+</ul>
+<h3 id="evidence">Evidence</h3>
+<p>The facts an auditor can verify: a record, a photo, a statement, something seen on the spot.</p>
+<ul>
+<li>Example: a photo of the calibration sticker showing the date 1 March, and the measurement log for that week.</li>
+<li>On screen: <strong>Evidence</strong>, <strong>Add Evidence Link</strong>, <strong>Evidence from Collectors</strong>.</li>
+<li>ISO term: audit evidence.</li>
+</ul>
+<h3 id="evidence-round">Evidence round</h3>
+<p>One period in which evidence is gathered for a test. An audit can have up to three rounds.</p>
+<ul>
+<li>Example: round 1 collects calibration records from January to March, round 2 from April to June.</li>
+<li>On screen: <strong>Round 1</strong>, <strong>Round 2</strong>, <strong>Set 3rd Round Dates</strong>, <strong>Collect Evidence</strong>.</li>
+<li>ISO term: none.</li>
+</ul>
+<h3 id="finding">Finding</h3>
+<p>The result of comparing what the auditor saw with what should be. In this pack, "finding" means a result that needs attention: a breach, or a weak spot.</p>
+<ul>
+<li>Example: "Gauge 14 was used on 3 March; its calibration expired on 1 March."</li>
+<li>On screen: <strong>Finding</strong>, <strong>Enter New Finding</strong>, <strong>Manage Audit Findings</strong>. Each finding has a <strong>Type</strong>; see major finding, minor finding, non-conformity and observation.</li>
+<li>ISO term: audit finding. In ISO a finding can also be positive, such as "conforms". The product records only the ones that need attention.</li>
+</ul>
+<h3 id="improvement">Improvement</h3>
+<p>A change that makes something better when nothing is broken.</p>
+<ul>
+<li>Example: a shared checklist so both shifts receive goods the same way.</li>
+<li>On screen: the action item <strong>Type</strong> <strong>Improvement</strong>.</li>
+<li>ISO term: opportunity for improvement, OFI.</li>
+</ul>
+<h3 id="major-finding">Major finding</h3>
+<p>A serious breach: a requirement is missing altogether, or the same failure shows up across the board, with a real risk to the product or the customer.</p>
+<!-- BA review: confirm the "when to pick it" rule for each finding type with service before the pack is approved. -->
+
+<ul>
+<li>When to pick it: the problem is systemic, or it could reach a customer.</li>
+<li>Example: no gauge on the line has a valid calibration.</li>
+<li>On screen: the finding <strong>Type</strong> <strong>Level1/Major</strong>. Lists and summaries show it as <strong>Major</strong>. Only a major finding can raise a CAPA straight from the audit.</li>
+<li>ISO term: major nonconformity. ISO 9001 does not define the grades; certification bodies and companies do.</li>
+</ul>
+<h3 id="minor-finding">Minor finding</h3>
+<p>A single, isolated lapse where the requirement is mostly met.</p>
+<ul>
+<li>When to pick it: one slip, low risk, the system around it works.</li>
+<li>Example: one gauge out of forty was used two days after its calibration expired.</li>
+<li>On screen: the finding <strong>Type</strong> <strong>Level2/Minor</strong>. Lists and summaries show it as <strong>Minor</strong>.</li>
+<li>ISO term: minor nonconformity.</li>
+</ul>
+<h3 id="non-conformity">Non-conformity</h3>
+<p>A requirement that is not met.</p>
+<ul>
+<li>When to pick it, as a finding type: the requirement is not met, and the company does not grade its findings as major or minor.</li>
+<li>Example: the receiving procedure says every delivery is inspected; three deliveries last week were not.</li>
+<li>On screen: <strong>Non-conformity</strong>, as a finding <strong>Type</strong> and as a CAPA <strong>Event Type</strong>. Summaries show it as <strong>NC</strong>.</li>
+<li>ISO term: nonconformity.</li>
+<li>Also known as: nonconformity, non-conformance, NC.</li>
+</ul>
+<h3 id="observation">Observation</h3>
+<p>A weak spot that does not break a requirement yet but could if left alone.</p>
+<ul>
+<li>When to pick it: nothing is wrong today, but the auditor sees a risk.</li>
+<li>Example: training records are complete, but filled in late and from memory.</li>
+<li>On screen: the finding <strong>Type</strong> <strong>Level3/Observation</strong>. Lists and summaries show it as <strong>GF</strong>, short for general finding.</li>
+<li>ISO term: none. "Observation" is a common audit word, not an ISO 9001 term.</li>
+<li>Watch out: in the product's lists, a major or minor finding is stored as "Major Observation" or "Minor Observation". That is a label quirk; in this pack, "observation" always means this entry.</li>
+</ul>
+<h3 id="preventive-action">Preventive action</h3>
+<p>Removing the cause of a problem that has not happened yet.</p>
+<ul>
+<li>Example: the gauge problem was found at one site; the same calibration list is used at two other sites, so they get the reminders too.</li>
+<li>On screen: the action item <strong>Type</strong> <strong>Preventive</strong>.</li>
+<li>ISO term: preventive action. ISO 9001:2015 handles it through risk-based thinking; ISO 13485 keeps it as its own clause.</li>
+</ul>
+<h3 id="quality-event">Quality event</h3>
+<p>Any quality problem the company records so it can be looked at: a non-conformity, a complaint, a deviation and so on. A quality event is reviewed first; if it turns out to need a root cause and lasting fixes, it is escalated to a CAPA.</p>
+<ul>
+<li>Example: a customer reports scratched housings; the quality team logs a quality event, reviews it, and decides it needs a CAPA.</li>
+<li>On screen: <strong>Quality Event</strong>, <strong>Create Quality Event</strong> on the audit, <strong>Send to CAPA</strong> on the quality event.</li>
+<li>ISO term: none. ISO speaks of nonconformities and complaints; "quality event" is the umbrella used in the product.</li>
+<li>Also known as: nonconformance report or NCR, deviation report, incident report. The name depends on the industry.</li>
+<li>Rule in the product: a major finding can go straight to a CAPA. Any other finding goes to a quality event first and is escalated to a CAPA if it needs one.</li>
+</ul>
+<h3 id="requirement">Requirement</h3>
+<p>Something the company must do, taken from a standard, a customer contract, a law or its own procedures. Audits check requirements.</p>
+<ul>
+<li>Example: the company's calibration procedure says "Measuring equipment is calibrated every 12 months".</li>
+<li>On screen: <strong>Requirement</strong>, <strong>Create a Requirement</strong>, <strong>Requirement Management</strong>. Requirements can be imported from the company's process repository.</li>
+<li>ISO term: audit criteria, meaning what the audit checks against, and requirement.</li>
+</ul>
+<h3 id="root-cause">Root cause</h3>
+<p>The real reason a problem happened, found by asking "why" until the answer is something the company can change. The first visible symptom is rarely the root cause.</p>
+<ul>
+<li>Example: the gauge was overdue. Why? Nobody noticed. Why? Nobody was responsible for the calibration list. The root cause is the missing owner.</li>
+<li>On screen: <strong>Describe the root cause</strong>, <strong>RCA Result</strong>, <strong>Unable to Determine the Root Cause</strong>.</li>
+<li>ISO term: cause of the nonconformity, ISO 9001 clause 10.2.</li>
+</ul>
+<h3 id="root-cause-analysis">Root cause analysis</h3>
+<p>The structured search for the root cause. Two methods are common. "5 Whys" keeps asking why until the answer is something the company controls. The fishbone diagram sorts possible causes into people, methods, machines, materials, measurement and environment.</p>
+<ul>
+<li>On screen: the CAPA step <strong>Execute the Root Cause Analysis</strong>, the fields <strong>RCA Method</strong>, <strong>3x5 Why Analysis</strong>, <strong>5W</strong>.</li>
+<li>ISO term: determining the causes of the nonconformity.</li>
+<li>Also known as: RCA.</li>
+</ul>
+<h3 id="sign-off">Sign-off</h3>
+<p>The final approval that closes a piece of work: an audit result, an action item or a CAPA.</p>
+<ul>
+<li>Example: the audit owner reads the audit report and signs it off; the quality director signs off the CAPA once the effectiveness check passed.</li>
+<li>On screen: <strong>Sign-Off</strong>, <strong>Sign Off on the CAPA</strong>, <strong>Sign-off on the action</strong>.</li>
+<li>ISO term: none.</li>
+</ul>
+<h3 id="test">Test</h3>
+<p>A planned check of one requirement that needs proof gathered over time, usually by sampling.</p>
+<ul>
+<li>Example: "Pick 25 calibration records each quarter and check each one is on time."</li>
+<li>On screen: <strong>Test</strong>, <strong>Create Test</strong>, <strong>Requirement(s) Needs Testing?</strong>, <strong>Evidence Collection Requirements</strong>.</li>
+<li>ISO term: none. Auditors call it sampling or testing.</li>
+</ul>
+<h2 id="roles">Roles</h2>
+<p>Who does what in Audit, CAPA and Action Items. Where the product has no label for a role, the pack uses the name in the first column and says so.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Role in this pack</th>
+<th>What they do</th>
+<th>On screen</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Program author</td>
+<td>Writes an audit program and sends it for review</td>
+<td>no label; whoever creates the program</td>
+</tr>
+<tr>
+<td>Team leader</td>
+<td>Reviews and approves audit programs for their team</td>
+<td><strong>Team Leader</strong></td>
+</tr>
+<tr>
+<td>Audit owner</td>
+<td>Creates the audit plan, schedules it, confirms dates, signs off the result</td>
+<td>no label; whoever creates the audit plan, and only the program's team leader can</td>
+</tr>
+<tr>
+<td>Lead auditor</td>
+<td>Runs the audit, assigns auditors, evaluates requirements</td>
+<td><strong>Lead Auditor</strong></td>
+</tr>
+<tr>
+<td>Auditor</td>
+<td>Evaluates the requirements assigned to them and records findings</td>
+<td><strong>Auditor</strong>, <strong>Participant Auditors</strong></td>
+</tr>
+<tr>
+<td>Lead evidence collector</td>
+<td>Assigns collectors and dates, reviews the evidence they bring</td>
+<td><strong>Lead Evidence Collector</strong></td>
+</tr>
+<tr>
+<td>Evidence collector</td>
+<td>Gathers evidence for tests, round by round</td>
+<td><strong>Evidence Collector</strong></td>
+</tr>
+<tr>
+<td>Auditee</td>
+<td>Is audited; receives emails, not tasks</td>
+<td><strong>Auditees</strong></td>
+</tr>
+<tr>
+<td>CAPA reviewer</td>
+<td>Reviews a new CAPA or quality event, verifies the plan of actions</td>
+<td><strong>CAPA Reviewer</strong>, <strong>QE / CAPA Reviewer</strong></td>
+</tr>
+<tr>
+<td>RCA owner</td>
+<td>Finds the root cause and proposes the actions</td>
+<td><strong>RCA Owner</strong></td>
+</tr>
+<tr>
+<td>Effectiveness checker</td>
+<td>Checks that the actions worked</td>
+<td><strong>Eff. Check Responsible</strong></td>
+</tr>
+<tr>
+<td>Action item owner</td>
+<td>Does the action</td>
+<td><strong>Action Item Owner</strong></td>
+</tr>
+<tr>
+<td>Action completion reviewer</td>
+<td>Signs off the action once it is done</td>
+<td><strong>Action Completion Reviewer</strong></td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="for-readers-who-know-the-standards">For readers who know the standards</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Word in this pack</th>
+<th>ISO 9001 / ISO 19011 term</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>audit</td>
+<td>internal audit</td>
+<td>clause 9.2</td>
+</tr>
+<tr>
+<td>audit program</td>
+<td>no match</td>
+<td>narrower than ISO's "audit programme"</td>
+</tr>
+<tr>
+<td>audit plan</td>
+<td>audit plan</td>
+<td></td>
+</tr>
+<tr>
+<td>requirement</td>
+<td>audit criteria, requirement</td>
+<td></td>
+</tr>
+<tr>
+<td>evidence</td>
+<td>audit evidence</td>
+<td></td>
+</tr>
+<tr>
+<td>finding</td>
+<td>audit finding</td>
+<td>the product records only findings that need attention</td>
+</tr>
+<tr>
+<td>major / minor finding</td>
+<td>major / minor nonconformity</td>
+<td>grades are set by certification bodies, not ISO 9001</td>
+</tr>
+<tr>
+<td>non-conformity</td>
+<td>nonconformity</td>
+<td></td>
+</tr>
+<tr>
+<td>observation</td>
+<td>no ISO term</td>
+<td></td>
+</tr>
+<tr>
+<td>improvement</td>
+<td>opportunity for improvement, OFI</td>
+<td></td>
+</tr>
+<tr>
+<td>correction</td>
+<td>correction</td>
+<td>clause 10.2</td>
+</tr>
+<tr>
+<td>corrective action</td>
+<td>corrective action</td>
+<td>clause 10.2</td>
+</tr>
+<tr>
+<td>preventive action</td>
+<td>preventive action</td>
+<td>risk-based thinking in ISO 9001:2015; own clause in ISO 13485</td>
+</tr>
+<tr>
+<td>effectiveness check</td>
+<td>review of the effectiveness of corrective action</td>
+<td>clause 10.2</td>
+</tr>
+<tr>
+<td>records</td>
+<td>documented information</td>
+<td>clause 7.5</td>
+</tr>
+</tbody>
+</table></div></main>
+</body></html>

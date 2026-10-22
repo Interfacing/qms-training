@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Action items, and the quality event route</title>
+<style>/* Page CSS for the QMS training docs, from the template decision (#2087).
+   Layout A (Level 1): one long story page. Layout B (Levels 2 and 3): one row per step,
+   real life on the left and the product on the right. build.py inlines this file into every page. */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300..800&display=swap');
+:root{--if-navy:#002e56;--if-blue:#0371c3;--if-blue-dark:#0757a2;--if-cyan:#1db5fc;--if-ink:#000229;--if-text:#5f6368;
+--if-tint:#f0f8ff;--if-surface:#f7f9fb;--if-line:#dae4ed;--if-grey:#8c8c8c;
+--if-font:"Plus Jakarta Sans",system-ui,sans-serif;--if-shadow:0 10px 30px rgba(0,46,86,.12);
+--if-grad:linear-gradient(135deg,#1db5fc 0%,#0371c3 60%,#0757a2 100%)}
+*{box-sizing:border-box}
+body{margin:0;font:17px/1.65 var(--if-font);color:var(--if-text);background:#fff}
+h1,h2,h3,h4{color:var(--if-ink);line-height:1.2;margin:1.6em 0 .5em}h1{font-size:44px;font-weight:700;margin-top:0}
+h2{font-size:30px;font-weight:700}h3{font-size:21px;font-weight:700}
+a{color:var(--if-blue)}strong{color:var(--if-ink)}
+img{max-width:100%}
+code{background:var(--if-surface);border:1px solid var(--if-line);border-radius:4px;padding:.1em .35em;font-size:.88em}
+table{border-collapse:collapse;width:100%;font-size:15px;margin:1rem 0}
+th,td{border-bottom:1px solid var(--if-line);padding:.5rem .65rem;text-align:left;vertical-align:top}
+th{color:var(--if-ink);font-weight:700;background:var(--if-surface)}
+.table-wrap{overflow-x:auto}
+blockquote{margin:1.2rem 0;padding:16px 20px;background:#fff8e6;border-radius:16px;color:#5a3d00}
+/* top bar and footer */
+.topbar{display:flex;align-items:center;gap:16px;padding:14px 32px;border-bottom:1px solid var(--if-line)}
+.logo{font:800 20px var(--if-font);color:var(--if-navy);letter-spacing:-.02em}.logo span{color:var(--if-cyan)}
+.crumbs{font-size:14px;color:var(--if-grey)}.stamp{margin-left:auto;font-size:12px;color:var(--if-grey)}
+.lvl{display:inline-block;padding:3px 10px;border-radius:30px;font:700 12px/1.4 var(--if-font);color:#fff;background:var(--if-blue)}
+.lvl.l1{background:var(--if-navy)}.lvl.l3{background:var(--if-grey)}
+footer{border-top:1px solid var(--if-line);margin-top:48px;padding:16px 32px;font-size:13px;color:var(--if-grey)}
+/* blocks pages write as HTML */
+.story{background:var(--if-tint);border-left:8px solid var(--if-blue);border-radius:0 16px 16px 0;padding:20px 24px;color:var(--if-ink)}
+.card{background:var(--if-surface);border-radius:16px;padding:20px 22px}
+.story,.card,.warn,.roles{margin:1.5rem 0}
+.warn{background:#fff8e6;border-radius:16px;padding:16px 20px}.warn h3{color:#7a5200;margin-top:0}
+.roles{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px}
+.role{background:#fff;border:1px solid var(--if-line);border-radius:16px;padding:14px}.role p{margin:0}
+.role .who{font-weight:700;color:var(--if-ink)}.role .job{font-size:13px;color:var(--if-grey)}
+.flow{display:flex;flex-wrap:wrap;align-items:stretch;gap:8px;margin:18px 0}
+.flow .st{flex:1;min-width:110px;background:#fff;border:2px solid var(--if-line);border-radius:14px;padding:12px;text-align:center;font-size:14px;color:var(--if-ink)}
+.next{display:flex;justify-content:space-between;gap:16px;border-top:1px solid var(--if-line);padding-top:16px;margin-top:40px;font-weight:600}
+.flow .st.on{background:var(--if-blue);border-color:var(--if-blue);color:#fff}
+/* screenshot with numbered callouts: <figure class="shot"><img ...><span class="co" style="left:..%;top:..%">1</span></figure> */
+.shot{position:relative;margin:1.2rem 0;border:1px solid var(--if-line);border-radius:12px;box-shadow:var(--if-shadow);overflow:hidden}
+.shot img{display:block;width:100%}
+.co{position:absolute;width:34px;height:34px;margin:-17px 0 0 -17px;border-radius:50%;background:var(--if-blue);color:#fff;font:700 16px/34px var(--if-font);text-align:center;box-shadow:0 0 0 4px rgba(255,255,255,.9)}
+ol.legend{padding-left:0;list-style:none;counter-reset:c}ol.legend li{counter-increment:c;position:relative;padding-left:36px;margin:8px 0}
+ol.legend li::before{content:counter(c);position:absolute;left:0;top:1px;width:26px;height:26px;border-radius:50%;background:var(--if-blue);color:#fff;font:700 13px/26px var(--if-font);text-align:center}
+/* layout A */
+.layout-a main{max-width:820px;margin:0 auto;padding:40px 24px 80px}
+/* layout B */
+.layout-b .hero{background:var(--if-grad);padding:48px 48px 56px;border-radius:0 0 40px 40px}
+.layout-b .hero h1{color:#fff}.layout-b .hero p{color:#e6f4ff;max-width:720px}
+.layout-b main{max-width:1180px;margin:0 auto;padding:32px 24px 80px;counter-reset:step}
+.layout-b .row{display:grid;grid-template-columns:70px 1fr 1fr;gap:20px;padding:22px 0;border-bottom:1px solid var(--if-line);counter-increment:step}
+.layout-b .row::before{content:counter(step);font:800 40px/1 var(--if-font);color:var(--if-line)}
+.layout-b .row .wide{grid-column:2 / -1}
+.layout-b .life{color:var(--if-ink)}.layout-b .prod{background:var(--if-surface);border-radius:14px;padding:14px 16px;font-size:15px}
+.layout-b .life>:first-child,.layout-b .prod>:first-child{margin-top:0}
+@media (max-width:760px){.layout-b .row{grid-template-columns:1fr}.layout-b .row .wide{grid-column:auto}.layout-b .row::before{font-size:28px}}
+@media print{.topbar,footer{display:none}.shot{box-shadow:none}h2{page-break-after:avoid}}
+</style></head>
+<body class="layout-b">
+<header class="topbar"><span class="logo">interfacing<span>.</span></span>
+<span class="crumbs">QMS training</span> <span class="lvl l2">Level 2 · In the product</span><span class="stamp">QMS ext 406, checked on the demo environment</span></header>
+<div class="hero"><h1 id="action-items-and-the-quality-event-route">Action items, and the quality event route</h1>
+<p>An action item is one piece of work with one owner and a due date. It works the same way wherever it comes from: a CAPA, a quality event, or <strong>New Action</strong> in the <strong>Action Item</strong> app. This chapter follows Jonas's three CAPA actions, then the minor finding through a quality event.</p></div>
+<main>
+<div class="row">
+<div class="life">
+<h3 id="the-work-arrives">The work arrives</h3>
+<p>Once Elena approves the CAPA plan, Jonas finds three new jobs on his list.</p>
+</div>
+<div class="prod">
+<p>Each action item is a task <strong>Execute the Action</strong> in the owner's <strong>To Do</strong>.</p>
+</div>
+<div class="wide">
+<figure class="shot"><img src="img/31-action-owner-todo.png" alt="Jonas's To Do with three action items"><span class="co" style="left:9.4%;top:63%">1</span><span class="co" style="left:20.5%;top:67.7%">2</span><span class="co" style="left:54.8%;top:65.4%">3</span><span class="co" style="left:67.5%;top:65.4%">4</span></figure>
+<ol class="legend">
+<li>The process name reads <strong>Action Items (No CAPA)</strong> for every action item, including those that come from a CAPA.</li>
+<li>The subject carries the action name.</li>
+<li><strong>Sent by</strong>: who sent the action out.</li>
+<li><strong>Priority</strong> of the task.</li>
+</ol>
+</div>
+</div>
+<div class="row">
+<div class="life">
+<h3 id="do-the-work-and-say-what-was-done">Do the work and say what was done</h3>
+<p>Jonas names an owner for the calibration list and sets the reminders. He writes down what he did, attaches the proof, and says whether the fix is permanent.</p>
+</div>
+<div class="prod">
+<p>The task opens the action item. <strong>Enter your findings</strong>, near the top, is required. It records what was done.</p>
+<figure class="shot"><img src="img/32-execute-action-item.png" alt="Jonas's Execute the Action task"><span class="co" style="left:48.7%;top:13%">1</span><span class="co" style="left:4%;top:49.9%">2</span><span class="co" style="left:3.8%;top:64.6%">3</span><span class="co" style="left:51.3%;top:97%">4</span></figure>
+<ol class="legend">
+<li><strong>Evidence of Action Completion</strong>: files that prove the work.</li>
+<li><strong>Resolution</strong>, required: <strong>Permanent</strong>, <strong>Temporary</strong> or <strong>Work Around</strong>.</li>
+<li><strong>Describe Evidence of Effectiveness</strong>, optional.</li>
+<li><strong>Action Complete</strong> sends it for sign-off. <strong>Refuse Action</strong> returns it to the person who created it.</li>
+</ol>
+<p>An owner who needs more time can use <strong>Request an Extension</strong> on the action. One extension is allowed per action.</p>
+</div>
+</div>
+<div class="row">
+<div class="life">
+<h3 id="sign-it-off">Sign it off</h3>
+<p>Ahmed checks each result. A fix that is done badly goes back to Jonas.</p>
+</div>
+<div class="prod">
+<p>The action completion reviewer gets <strong>Sign-off on the action</strong>.</p>
+<figure class="shot"><img src="img/33-sign-off-action.png" alt="Ahmed's sign-off on one action"><span class="co" style="left:6%;top:21.8%">1</span><span class="co" style="left:6%;top:87%">2</span><span class="co" style="left:51.3%;top:97%">3</span></figure>
+<ol class="legend">
+<li><strong>Action ID</strong>.</li>
+<li><strong>Type</strong>: correction, corrective or preventive.</li>
+<li><strong>Approve Action</strong> completes it. <strong>Reject Action</strong> sends it back to the owner as <strong>Action Not Complete</strong>.</li>
+</ol>
+<p>When every action of a CAPA is signed off, the CAPA moves on to its effectiveness check, as chapter 12 shows.</p>
+</div>
+</div>
+<div class="row">
+<div class="life">
+<h3 id="open-a-quality-event">Open a quality event</h3>
+<p>The old work instruction at station 5 is a single slip. Elena records it as a quality event, linked to the audit.</p>
+</div>
+<div class="prod">
+<p>Open <strong>Quality Event</strong> &gt; <strong>New Quality Event</strong>. On the demo system, the audit hand-over created nothing, so Elena opened it by hand.</p>
+<figure class="shot"><img src="img/37a-new-quality-event.png" alt="A new quality event for the minor finding"><span class="co" style="left:5.6%;top:33.5%">1</span><span class="co" style="left:52.6%;top:33.5%">2</span><span class="co" style="left:52.6%;top:46%">3</span><span class="co" style="left:5.6%;top:52.2%">4</span></figure>
+<ol class="legend">
+<li><strong>Event Type</strong>: <strong>Audit Finding (Internal)</strong>.</li>
+<li><strong>Severity</strong>: <strong>Minor</strong>.</li>
+<li><strong>QE Reviewer</strong>: who decides what happens next.</li>
+<li><strong>Audit Plan (Internal)</strong> links it to the audit.</li>
+</ol>
+</div>
+</div>
+<div class="row">
+<div class="life">
+<h3 id="add-the-fix">Add the fix</h3>
+<p>The fix is a correction only. Grace's team puts revision C up and collects the old copies, and Elena signs it off.</p>
+</div>
+<div class="prod">
+<p>Lower on the same form, <strong>Associated Action Item</strong> has an <strong>Add</strong> button. It opens the same action item form as in a CAPA.</p>
+<figure class="shot"><img src="img/38-quality-event-action-item.png" alt="The correction added to the quality event"><span class="co" style="left:11%;top:45%">1</span><span class="co" style="left:7.2%;top:64.6%">2</span><span class="co" style="left:24%;top:79%">3</span><span class="co" style="left:97.2%;top:97.3%">4</span></figure>
+<ol class="legend">
+<li><strong>Audit Information</strong>, filled from the audit.</li>
+<li><strong>Add</strong> creates an action item.</li>
+<li>The correction, owned by Grace.</li>
+<li><strong>Submit</strong> sends the quality event for review.</li>
+</ol>
+</div>
+</div>
+<div class="row">
+<div class="life">
+<h3 id="decide-how-much-work-it-needs">Decide how much work it needs</h3>
+<p>Elena reviews the event. One station, one copy, and document control works everywhere else. It needs the correction and nothing more.</p>
+</div>
+<div class="prod">
+<p>The QE reviewer gets <strong>Review the Issue</strong>.</p>
+<figure class="shot"><img src="img/37-review-quality-event.png" alt="Elena's Review the Issue task"><span class="co" style="left:51.3%;top:50%">1</span><span class="co" style="left:51.3%;top:63.2%">2</span><span class="co" style="left:6%;top:69.8%">3</span><span class="co" style="left:51.3%;top:97%">4</span></figure>
+<ol class="legend">
+<li><strong>Severity</strong>.</li>
+<li><strong>QE Reviewer</strong>.</li>
+<li>The audit it came from.</li>
+<li>The five choices in <strong>Task Resolution</strong>, below.</li>
+</ol>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Choice</th>
+<th>When</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Correct Issue Immediately (No Action)</strong></td>
+<td>already fixed, nothing to track</td>
+</tr>
+<tr>
+<td><strong>Correct Issue Immediately with Actions</strong></td>
+<td>a quick fix that needs action items, as here</td>
+</tr>
+<tr>
+<td><strong>Gather More Details, associate risk(s) and create actions(s)</strong></td>
+<td>it needs a closer look; this route can lead to a CAPA</td>
+</tr>
+<tr>
+<td><strong>No Issue (Close QE)</strong></td>
+<td>there is no real problem</td>
+</tr>
+<tr>
+<td><strong>Send for modification</strong></td>
+<td>the event needs changes first</td>
+</tr>
+</tbody>
+</table></div>
+<p>Grace then gets <strong>Execute the Action</strong> and Elena <strong>Sign-off on the action</strong>, as above.</p>
+</div>
+</div>
+<div class="warn">
+<h3 id="common-mistakes">Common mistakes</h3>
+<ul>
+<li>Clicking <strong>Action Complete</strong> without <strong>Enter your findings</strong> or a <strong>Resolution</strong>. The product refuses the task.</li>
+<li>Marking a temporary fix as <strong>Permanent</strong>. The effectiveness check then looks at the wrong thing.</li>
+<li>Signing off an action without opening the evidence.</li>
+<li>Sending a pattern of slips through quality events one by one. The same slip twice needs a CAPA.</li>
+</ul>
+</div>
+<div class="next"><a href="12-running-a-capa.html">Back: Running a CAPA</a><a href="14-keeping-track.html">Next: Keeping track: lists and dashboards</a></div></main>
+</body></html>

@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Planning and scheduling an audit</title>
+<style>/* Page CSS for the QMS training docs, from the template decision (#2087).
+   Layout A (Level 1): one long story page. Layout B (Levels 2 and 3): one row per step,
+   real life on the left and the product on the right. build.py inlines this file into every page. */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300..800&display=swap');
+:root{--if-navy:#002e56;--if-blue:#0371c3;--if-blue-dark:#0757a2;--if-cyan:#1db5fc;--if-ink:#000229;--if-text:#5f6368;
+--if-tint:#f0f8ff;--if-surface:#f7f9fb;--if-line:#dae4ed;--if-grey:#8c8c8c;
+--if-font:"Plus Jakarta Sans",system-ui,sans-serif;--if-shadow:0 10px 30px rgba(0,46,86,.12);
+--if-grad:linear-gradient(135deg,#1db5fc 0%,#0371c3 60%,#0757a2 100%)}
+*{box-sizing:border-box}
+body{margin:0;font:17px/1.65 var(--if-font);color:var(--if-text);background:#fff}
+h1,h2,h3,h4{color:var(--if-ink);line-height:1.2;margin:1.6em 0 .5em}h1{font-size:44px;font-weight:700;margin-top:0}
+h2{font-size:30px;font-weight:700}h3{font-size:21px;font-weight:700}
+a{color:var(--if-blue)}strong{color:var(--if-ink)}
+img{max-width:100%}
+code{background:var(--if-surface);border:1px solid var(--if-line);border-radius:4px;padding:.1em .35em;font-size:.88em}
+table{border-collapse:collapse;width:100%;font-size:15px;margin:1rem 0}
+th,td{border-bottom:1px solid var(--if-line);padding:.5rem .65rem;text-align:left;vertical-align:top}
+th{color:var(--if-ink);font-weight:700;background:var(--if-surface)}
+.table-wrap{overflow-x:auto}
+blockquote{margin:1.2rem 0;padding:16px 20px;background:#fff8e6;border-radius:16px;color:#5a3d00}
+/* top bar and footer */
+.topbar{display:flex;align-items:center;gap:16px;padding:14px 32px;border-bottom:1px solid var(--if-line)}
+.logo{font:800 20px var(--if-font);color:var(--if-navy);letter-spacing:-.02em}.logo span{color:var(--if-cyan)}
+.crumbs{font-size:14px;color:var(--if-grey)}.stamp{margin-left:auto;font-size:12px;color:var(--if-grey)}
+.lvl{display:inline-block;padding:3px 10px;border-radius:30px;font:700 12px/1.4 var(--if-font);color:#fff;background:var(--if-blue)}
+.lvl.l1{background:var(--if-navy)}.lvl.l3{background:var(--if-grey)}
+footer{border-top:1px solid var(--if-line);margin-top:48px;padding:16px 32px;font-size:13px;color:var(--if-grey)}
+/* blocks pages write as HTML */
+.story{background:var(--if-tint);border-left:8px solid var(--if-blue);border-radius:0 16px 16px 0;padding:20px 24px;color:var(--if-ink)}
+.card{background:var(--if-surface);border-radius:16px;padding:20px 22px}
+.story,.card,.warn,.roles{margin:1.5rem 0}
+.warn{background:#fff8e6;border-radius:16px;padding:16px 20px}.warn h3{color:#7a5200;margin-top:0}
+.roles{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px}
+.role{background:#fff;border:1px solid var(--if-line);border-radius:16px;padding:14px}.role p{margin:0}
+.role .who{font-weight:700;color:var(--if-ink)}.role .job{font-size:13px;color:var(--if-grey)}
+.flow{display:flex;flex-wrap:wrap;align-items:stretch;gap:8px;margin:18px 0}
+.flow .st{flex:1;min-width:110px;background:#fff;border:2px solid var(--if-line);border-radius:14px;padding:12px;text-align:center;font-size:14px;color:var(--if-ink)}
+.next{display:flex;justify-content:space-between;gap:16px;border-top:1px solid var(--if-line);padding-top:16px;margin-top:40px;font-weight:600}
+.flow .st.on{background:var(--if-blue);border-color:var(--if-blue);color:#fff}
+/* screenshot with numbered callouts: <figure class="shot"><img ...><span class="co" style="left:..%;top:..%">1</span></figure> */
+.shot{position:relative;margin:1.2rem 0;border:1px solid var(--if-line);border-radius:12px;box-shadow:var(--if-shadow);overflow:hidden}
+.shot img{display:block;width:100%}
+.co{position:absolute;width:34px;height:34px;margin:-17px 0 0 -17px;border-radius:50%;background:var(--if-blue);color:#fff;font:700 16px/34px var(--if-font);text-align:center;box-shadow:0 0 0 4px rgba(255,255,255,.9)}
+ol.legend{padding-left:0;list-style:none;counter-reset:c}ol.legend li{counter-increment:c;position:relative;padding-left:36px;margin:8px 0}
+ol.legend li::before{content:counter(c);position:absolute;left:0;top:1px;width:26px;height:26px;border-radius:50%;background:var(--if-blue);color:#fff;font:700 13px/26px var(--if-font);text-align:center}
+/* layout A */
+.layout-a main{max-width:820px;margin:0 auto;padding:40px 24px 80px}
+/* layout B */
+.layout-b .hero{background:var(--if-grad);padding:48px 48px 56px;border-radius:0 0 40px 40px}
+.layout-b .hero h1{color:#fff}.layout-b .hero p{color:#e6f4ff;max-width:720px}
+.layout-b main{max-width:1180px;margin:0 auto;padding:32px 24px 80px;counter-reset:step}
+.layout-b .row{display:grid;grid-template-columns:70px 1fr 1fr;gap:20px;padding:22px 0;border-bottom:1px solid var(--if-line);counter-increment:step}
+.layout-b .row::before{content:counter(step);font:800 40px/1 var(--if-font);color:var(--if-line)}
+.layout-b .row .wide{grid-column:2 / -1}
+.layout-b .life{color:var(--if-ink)}.layout-b .prod{background:var(--if-surface);border-radius:14px;padding:14px 16px;font-size:15px}
+.layout-b .life>:first-child,.layout-b .prod>:first-child{margin-top:0}
+@media (max-width:760px){.layout-b .row{grid-template-columns:1fr}.layout-b .row .wide{grid-column:auto}.layout-b .row::before{font-size:28px}}
+@media print{.topbar,footer{display:none}.shot{box-shadow:none}h2{page-break-after:avoid}}
+</style></head>
+<body class="layout-b">
+<header class="topbar"><span class="logo">interfacing<span>.</span></span>
+<span class="crumbs">QMS training</span> <span class="lvl l2">Level 2 · In the product</span><span class="stamp">QMS ext 406, checked on the demo environment</span></header>
+<div class="hero"><h1 id="planning-and-scheduling-an-audit">Planning and scheduling an audit</h1>
+<p>An approved program is a recipe. To run it, someone plans one audit with dates, then the product walks four people through setting it up: the audit owner, the lead auditor, the lead evidence collector, and the audit owner again.</p></div>
+<main>
+<p>Only the leader of the program's team can plan it. At Cedar Valley that is Marco.</p>
+<div class="row">
+<div class="life">
+<h3 id="plan-the-audit">Plan the audit</h3>
+<p>Marco plans this year's run of the calibration program for Riverside, on 21 and 22 October.</p>
+</div>
+<div class="prod">
+<p>Open <strong>Internal Audit Program Management</strong> &gt; <strong>Manage Audit Schedules</strong> and click <strong>Add</strong> under <strong>List of Audits</strong>. The form is headed <strong>New Audit</strong>.</p>
+<figure class="shot"><img src="img/11-new-audit-plan.png" alt="A new audit with the program added and the dates set"><span class="co" style="left:6.6%;top:27%">1</span><span class="co" style="left:26.6%;top:38.9%">2</span><span class="co" style="left:11.4%;top:72.6%">3</span><span class="co" style="left:88.4%;top:97%">4</span></figure>
+<ol class="legend">
+<li><strong>Add</strong> picks the program to run.</li>
+<li>The program, with its effort and site.</li>
+<li><strong>Planned Start Date</strong>, <strong>Planned End Date</strong> and <strong>Actual Start Date</strong>.</li>
+<li><strong>Save and Close</strong> creates the audit, here AP-00058.</li>
+</ol>
+<p>The audit waits until its planned start date. On that day, Marco gets the next task.</p>
+</div>
+</div>
+<div class="row">
+<div class="life">
+<h3 id="name-the-people">Name the people</h3>
+<p>Marco decides who does what. Sam leads the audit, Lina helps Sam, Tom collects the evidence, and Grace is the auditee. Her area is the one audited.</p>
+</div>
+<div class="prod">
+<p>Marco gets <strong>Schedule Audit</strong> in <strong>To Do</strong>. The section <strong>Participants &amp; Audit Schedule</strong> holds the people.</p>
+<figure class="shot"><img src="img/12-schedule-audit.png" alt="The Schedule Audit task with the participants filled in"><span class="co" style="left:4%;top:36.7%">1</span><span class="co" style="left:49.5%;top:36.6%">2</span><span class="co" style="left:49.5%;top:43.2%">3</span><span class="co" style="left:49.5%;top:50%">4</span><span class="co" style="left:49.5%;top:97%">5</span></figure>
+<ol class="legend">
+<li><strong>Participant Auditors</strong>: the auditors who help the lead.</li>
+<li><strong>Lead Auditor</strong> runs the audit.</li>
+<li><strong>Lead Evidence Collector</strong> organises the evidence.</li>
+<li><strong>Auditees</strong> get the emails about the audit. <strong>Auditees' Roles</strong> can name a role instead of a person.</li>
+<li>In <strong>Task Resolution</strong>, pick <strong>Establish Contact</strong>, then <strong>Submit</strong>. The auditees get the engagement letter.</li>
+</ol>
+</div>
+</div>
+<div class="row">
+<div class="life">
+<h3 id="share-out-the-requirements">Share out the requirements</h3>
+<p>Sam keeps R1 and R2 and gives R3 and R4 to Lina. Each auditor checks only their own requirements.</p>
+</div>
+<div class="prod">
+<p>Sam gets <strong>Assign Auditor(s)</strong>. In <strong>Requirements &amp; Auditors</strong>, every requirement starts with the lead auditor. Sam changes the auditor in the grid where needed.</p>
+<figure class="shot"><img src="img/13-assign-auditors.png" alt="Requirements shared between Sam and Lina"><span class="co" style="left:48.7%;top:41.6%">1</span><span class="co" style="left:79.7%;top:68.7%">2</span></figure>
+<ol class="legend">
+<li>The note on the form says that all requirements go to the lead auditor first.</li>
+<li><strong>Auditor</strong>: R1 and R2 for Sam, R3 and R4 for Lina.</li>
+</ol>
+<p>Sam finishes with <strong>Submit Auditors</strong>.</p>
+</div>
+</div>
+<div class="row">
+<div class="life">
+<h3 id="plan-the-evidence-rounds">Plan the evidence rounds</h3>
+<p>Tom will collect the evidence for the R1 test himself. A round is a period in which evidence is gathered.</p>
+</div>
+<div class="prod">
+<p>Tom gets <strong>Assign Collector(s)</strong>, because he is the lead evidence collector.</p>
+<figure class="shot"><img src="img/14-assign-collectors.png" alt="Tom assigned as collector, with the round dates"><span class="co" style="left:33%;top:49.7%">1</span><span class="co" style="left:26.6%;top:71.2%">2</span><span class="co" style="left:74.2%;top:85.9%">3</span></figure>
+<ol class="legend">
+<li>The collector for each test.</li>
+<li>Start and end dates for <strong>Round 1</strong> and <strong>Round 2</strong>.</li>
+<li><strong>Set Entered Dates</strong> copies the dates to the ticked rows. If it does nothing, type the dates into the grid cells instead.</li>
+</ol>
+<p>Tom finishes with <strong>Submit Collectors</strong>.</p>
+</div>
+</div>
+<div class="row">
+<div class="life">
+<h3 id="confirm-the-schedule">Confirm the schedule</h3>
+<p>Marco checks that everything is in place and confirms. From now on the audit runs.</p>
+</div>
+<div class="prod">
+<p>Marco gets <strong>Confirm Schedule</strong>. The sections show the people, the auditors and the collectors chosen in the steps before.</p>
+<figure class="shot"><img src="img/15-confirm-schedule.png" alt="The Confirm Schedule task"><span class="co" style="left:25.3%;top:63.8%">1</span><span class="co" style="left:67.7%;top:97%">2</span></figure>
+<ol class="legend">
+<li>Each section can be opened to check it.</li>
+<li><strong>Confirm</strong> starts the audit. <strong>Reject</strong> sends it back.</li>
+</ol>
+</div>
+</div>
+<div class="warn">
+<h3 id="common-mistakes">Common mistakes</h3>
+<ul>
+<li>Planning the audit as someone other than the team leader. The product refuses to plan it.</li>
+<li>A planned start date before the program's start of period. The product rejects the dates.</li>
+<li>Leaving every requirement with the lead auditor. Share them, or one person does the whole audit.</li>
+<li>Forgetting the auditees. They get no task, so the emails are all they see.</li>
+</ul>
+</div>
+<div class="next"><a href="07-audit-programs.html">Back: Audit programs</a><a href="09-collecting-evidence.html">Next: Collecting evidence</a></div></main>
+</body></html>
