@@ -39,7 +39,9 @@ footer{border-top:1px solid var(--if-line);margin-top:48px;padding:16px 32px;fon
 .role .who{font-weight:700;color:var(--if-ink)}.role .job{font-size:13px;color:var(--if-grey)}
 .flow{display:flex;flex-wrap:wrap;align-items:stretch;gap:8px;margin:18px 0}
 .flow .st{flex:1;min-width:110px;background:#fff;border:2px solid var(--if-line);border-radius:14px;padding:12px;text-align:center;font-size:14px;color:var(--if-ink)}
-.next{display:flex;justify-content:space-between;gap:16px;border-top:1px solid var(--if-line);padding-top:16px;margin-top:40px;font-weight:600}
+.crumbs{text-decoration:none}.crumbs:hover{text-decoration:underline}
+.next>*{flex:1}.next>:nth-child(2){text-align:center;flex:0 0 auto}.next>:last-child{text-align:right}
+.next{display:flex;justify-content:space-between;align-items:baseline;gap:16px;border-top:1px solid var(--if-line);padding-top:16px;margin-top:40px;font-weight:600}
 .flow .st.on{background:var(--if-blue);border-color:var(--if-blue);color:#fff}
 /* screenshot with numbered callouts: <figure class="shot"><img ...><span class="co" style="left:..%;top:..%">1</span></figure> */
 .shot{position:relative;margin:1.2rem 0;border:1px solid var(--if-line);border-radius:12px;box-shadow:var(--if-shadow);overflow:hidden}
@@ -63,7 +65,7 @@ ol.legend li::before{content:counter(c);position:absolute;left:0;top:1px;width:2
 </style></head>
 <body class="layout-b">
 <header class="topbar"><span class="logo">interfacing<span>.</span></span>
-<span class="crumbs">QMS training</span> <span class="lvl l2">Level 2 · In the product</span><span class="stamp">QMS ext 406, checked on the demo environment</span></header>
+<a class="crumbs" href="00-start-here.html">QMS training · Contents</a> <span class="lvl l2">Level 2 · In the product</span><span class="stamp">QMS ext 406, checked on the demo environment</span></header>
 <div class="hero"><h1 id="action-items-and-the-quality-event-route">Action items, and the quality event route</h1>
 <p>An action item is one piece of work with one owner and a due date. It works the same way wherever it comes from: a CAPA, a quality event, or <strong>New Action</strong> in the <strong>Action Item</strong> app. This chapter follows Jonas's three CAPA actions, then the minor finding through a quality event.</p></div>
 <main>
@@ -206,5 +208,5 @@ ol.legend li::before{content:counter(c);position:absolute;left:0;top:1px;width:2
 <li>Sending a pattern of slips through quality events one by one. The same slip twice needs a CAPA.</li>
 </ul>
 </div>
-<div class="next"><a href="12-running-a-capa.html">Back: Running a CAPA</a><a href="14-keeping-track.html">Next: Keeping track: lists and dashboards</a></div></main>
+<div class="next"><a href="12-running-a-capa.html">Back: Running a CAPA</a><a href="00-start-here.html">Contents</a><a href="14-keeping-track.html">Next: Keeping track: lists and dashboards</a></div></main>
 </body></html>

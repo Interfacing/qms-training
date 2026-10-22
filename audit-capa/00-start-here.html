@@ -39,7 +39,9 @@ footer{border-top:1px solid var(--if-line);margin-top:48px;padding:16px 32px;fon
 .role .who{font-weight:700;color:var(--if-ink)}.role .job{font-size:13px;color:var(--if-grey)}
 .flow{display:flex;flex-wrap:wrap;align-items:stretch;gap:8px;margin:18px 0}
 .flow .st{flex:1;min-width:110px;background:#fff;border:2px solid var(--if-line);border-radius:14px;padding:12px;text-align:center;font-size:14px;color:var(--if-ink)}
-.next{display:flex;justify-content:space-between;gap:16px;border-top:1px solid var(--if-line);padding-top:16px;margin-top:40px;font-weight:600}
+.crumbs{text-decoration:none}.crumbs:hover{text-decoration:underline}
+.next>*{flex:1}.next>:nth-child(2){text-align:center;flex:0 0 auto}.next>:last-child{text-align:right}
+.next{display:flex;justify-content:space-between;align-items:baseline;gap:16px;border-top:1px solid var(--if-line);padding-top:16px;margin-top:40px;font-weight:600}
 .flow .st.on{background:var(--if-blue);border-color:var(--if-blue);color:#fff}
 /* screenshot with numbered callouts: <figure class="shot"><img ...><span class="co" style="left:..%;top:..%">1</span></figure> */
 .shot{position:relative;margin:1.2rem 0;border:1px solid var(--if-line);border-radius:12px;box-shadow:var(--if-shadow);overflow:hidden}
@@ -63,7 +65,7 @@ ol.legend li::before{content:counter(c);position:absolute;left:0;top:1px;width:2
 </style></head>
 <body class="layout-a">
 <header class="topbar"><span class="logo">interfacing<span>.</span></span>
-<span class="crumbs">QMS training</span><span class="stamp">QMS ext 406, checked on the demo environment</span></header>
+<a class="crumbs" href="00-start-here.html">QMS training · Contents</a><span class="stamp">QMS ext 406, checked on the demo environment</span></header>
 <main><h1 id="start-here">Start here</h1>
 <p>This pack teaches internal audits, CAPA and action items. It starts with what happens in a real company and only then shows the product. You do not need to know quality management or ISO standards to read it.</p>
 <h2 id="three-levels">Three levels</h2>
